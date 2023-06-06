@@ -53,6 +53,8 @@ int main(){
     // OnBoardPeriph_Beep_Init();
     convertMapStringToMatrix();
     findTableAndStartPosition();
+
+    // Debug Functions
     printStringMatrix();
     printTableAndStartPosition();
   	return 0;
@@ -97,6 +99,18 @@ bool tableNotFoundYet(char c) {
 }
 
 
+void makeSound(){
+    OnBoardPeriph_Beep(100);
+    for (uint8_t i = 0; i < 3; i++) {
+        OnBoardPeriph_BeepCMD(Beep_on);
+        Delay(500);
+        OnBoardPeriph_BeepCMD(Beep_off);
+        Delay(500);
+    }
+}
+
+
+
 // Debug functions
 void printTableAndStartPosition(){
     printf("\nStart Position: x=%d, y=%d\n", startPosition.x, startPosition.y);
@@ -120,10 +134,6 @@ void turn(direction dir, int8_t amount){
     for (; amount != 0; amount--) {
         (dir == LEFT) ? turnLeft(): turnRight(); 
     }
-}
-
-void makeSound(){
-
 }
 
 void driveForward(int8_t numberOfSquares){}

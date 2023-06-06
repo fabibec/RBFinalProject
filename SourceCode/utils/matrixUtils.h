@@ -22,10 +22,10 @@ void findTableAndStartPosition();
 void printTableAndStartPosition();
 
 bool checkField(int8_t x, int8_t y);
-bool checkAbove(int8_t x, int8_t y);
-bool checkBelow(int8_t x, int8_t y);
-bool checkLeft(int8_t x, int8_t y);
-bool checkRight(int8_t x, int8_t y);
+bool checkAbove(coord*);
+bool checkBelow(coord*);
+bool checkLeft(coord*);
+bool checkRight(coord*);
 
 bool isStartPosition(char);
 bool isTablePosition(char);

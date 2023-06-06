@@ -10,7 +10,6 @@ void convertMapStringToMatrix(){
 
 }
 
-
 void findTableAndStartPosition(){
     for (int8_t i = 1; i < 13; i++){
         for (int8_t j = 1; j < 13; j++) {
@@ -39,24 +38,21 @@ bool tableNotFoundYet(char c) {
    return (tablePositionArray[(uint8_t)c - 49][0].x == 0 || tablePositionArray[(uint8_t)c - 49][1].x == 0); 
 }
 
-
-
-
 bool checkField(int8_t x, int8_t y) {
     return (mapStringMatrix[y][x] == ' ');
 }
 
-bool checkAbove(int8_t x, int8_t y){
-    return checkField(x, y - 1);
+bool checkAbove(coord* c){
+    return checkField(c->x, c->y - 1);
 }
-bool checkBelow(int8_t x, int8_t y){
-    return checkField(x, y + 1);
+bool checkBelow(coord* c){
+    return checkField(c->x, c->y + 1);
 }
-bool checkLeft(int8_t x, int8_t y){
-    return checkField(x - 1, y);
+bool checkLeft(coord* c){
+    return checkField(c->x - 1, c->y);
 }
-bool checkRight(int8_t x, int8_t y){
-    return checkField(x + 1, y);
+bool checkRight(coord *c){
+    return checkField(c->x + 1, c->y);
 }
 
 

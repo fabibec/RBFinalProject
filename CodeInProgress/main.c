@@ -36,13 +36,6 @@ typedef struct {
 } table;
 // holds the tables positions at index [table name (either 1,2 or 3) - 1]
 table tables[3];
-/*
-typedef struct {
-    uint8_t belongsTo;
-    uint8_t index;
-} table_corner;
-table_corner ends[6];
- */
 
 bool isTablePosition(char c){
     return (c == '1' || c == '2' || c == '3');
@@ -205,15 +198,36 @@ uint8_t findClosestTableTile(table* t){
     return (minDist1 < minDist2) ? index1 : index2;
 }
 
+void findRoute(uint8_t target){
+    uint8_t i = (mapTiles[target].distance - 1), route[i + 1], currentTile = target;
+    while(currentTile != start){
+        route[i] = currentTile;
+        currentTile = mapTiles[currentTile].prev;
+        i--;
+    }
+    // print for debugging
+    uint8_t x, y;
+    conv1Dto2D(start, &x, &y);
+    printf("(%d,%d) [Start] -> ", x, y);
+    for (int j = 0; j < (mapTiles[target].distance - 1); ++j) {
+        conv1Dto2D(route[j], &x, &y);
+        printf("(%d,%d) -> ", x, y);
+    }
+    conv1Dto2D(route[mapTiles[target].distance - 1], &x, &y);
+    printf("(%d,%d) [Target]\n", x, y);
+}
+
 void printClosestTiles(){
     uint8_t tileIndex = findClosestTableTile(&tables[destinations[0] - 1]), x, y;
     conv1Dto2D(tileIndex, &x , &y);
     printf("Closest Index to Table %d is: (%d,%d) with a distance of %d\n",\
         destinations[0], x, y, mapTiles[tileIndex].distance);
+    findRoute(tileIndex);
     tileIndex = findClosestTableTile(&tables[destinations[1] - 1]);
     conv1Dto2D(tileIndex, &x , &y);
     printf("Closest Index to Table %d is: (%d,%d) with a distance of %d\n",\
         destinations[1], x, y, mapTiles[tileIndex].distance);
+    findRoute(tileIndex);
 }
 
 //TODO convert the path to node into actual driving instructions

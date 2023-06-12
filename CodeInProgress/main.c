@@ -37,31 +37,43 @@ typedef struct {
 // holds the tables positions at index [table name (either 1,2 or 3) - 1]
 table tables[3];
 
-bool isTablePosition(char c){
+inline bool isTablePosition(char c){
     return (c == '1' || c == '2' || c == '3');
 }
 
-void findStartAndTablePosition(){
-    // init tables array
+inline bool isStartPosition(char c) {
+    return currentChar == 'S';
+}
+
+inline void initTablesArray(){
     for (int i = 0; i < 3; ++i) {
         tables[i].index1 = UINT8_MAX;
         tables[i].index2 = UINT8_MAX;
     }
+}
+
+inline void fillTablePosition(uint8_t tableIndex, uint8_t i, uint8_t j) {
+    if(tables[x].index1 == UINT8_MAX){
+        tables[x].index1 = conv2Dto1D(i, j);
+    } else {
+        tables[x].index2 = conv2Dto1D(i, j);
+    }
+}
+
+void findStartAndTablePosition(){
+
+    initTablesArray();
 
     char currentChar;
     uint8_t x;
     for (int8_t i = 1; i < 13; i++){
         for (int8_t j = 1; j < 13; j++) {
             currentChar = mapStringMatrix[i][j];
-            if (currentChar == 'S') {
+            if (isStartPosition(currentChar)) {
                 start = conv2Dto1D(i,j);
             } else if (isTablePosition(currentChar)){
                 x = (currentChar - '1');
-                if(tables[x].index1 == UINT8_MAX){
-                    tables[x].index1 = conv2Dto1D(i, j);
-                } else {
-                    tables[x].index2 = conv2Dto1D(i, j);
-                }
+                fillTablePosition(x, i, j);        
             }
         }
     }

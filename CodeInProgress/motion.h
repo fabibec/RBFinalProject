@@ -1,6 +1,7 @@
 #ifndef MOTION_H
 #define MOTION_H
 
+direction roboDirection = S;
 
 void initMotorPorts();
 void driveTile();

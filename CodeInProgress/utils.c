@@ -103,10 +103,10 @@ bool enumUnderflow(direction d){
     return ((uint8_t) d - 1) < 0;
 }
 
-direction turnDirections(direction d, int8_t steps,bool positive){
+direction turnDirections(direction d, int8_t steps,bool clockwise){
     direction new = d;
     for (int8_t i = 0; i < steps; ++i) {
-        if(positive){
+        if(clockwise){
             new = ((new + 1) % 4);
         } else{
             if(!enumUnderflow(new))
@@ -118,13 +118,15 @@ direction turnDirections(direction d, int8_t steps,bool positive){
     return new;
 }
 
-// -1 left Turn; 0 no turn; 1 right Turn
+// -1 left Turn; 0 no turn; 1 right Turn; 2 180 deg
 int8_t turnDegrees(direction to){
     direction currentDirection = roboDirection;
     if(((currentDirection + 1) % 4) == to){
         return 1;
-    }  else if(turnDirections(currentDirection,1,false) == to){
+    } else if(turnDirections(currentDirection,1,false) == to){
         return -1;
+    } else if(turnDirections(currentDirection,2,true) == to){
+        return 2;
     }
     return 0;
 }

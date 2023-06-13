@@ -31,6 +31,6 @@ direction headsTo(uint8_t currentIndex, uint8_t nextIndex);
 int8_t turnDegrees(direction to);
 void setRoboDir(direction d);
 direction getRoboDir();
-direction turnDirections(direction d, int8_t steps,bool positive);
+direction turnDirections(direction d, int8_t steps,bool clockwise);
 
 #endif //CODEINPROGRESS_UTILS_H

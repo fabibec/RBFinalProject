@@ -106,15 +106,16 @@ void findClosestTableTile(table* t, uint8_t index){
 }
 
 void findRoute(uint8_t target){
-    uint8_t i = (mapTiles[target].distance - 1), route[i + 1], currentTile = target;
+    // create Route
+    uint8_t i = (mapTiles[target].distance - 1), route[i + 1], currentTile = target, dist = mapTiles[target].distance;
     while(currentTile != start){
         route[i] = currentTile;
         currentTile = mapTiles[currentTile].prev;
         i--;
     }
-
+    // drive to target
     uint8_t currentIndex = start, forwardCount = 0;
-    for (int j = 0; j <= (mapTiles[target].distance - 1); ++j) {
+    for (uint8_t j = 0; j <= (dist - 1); ++j) {
         direction to = headsTo(currentIndex, route[j]);
         int8_t turn = turnDegrees(to);
         switch (turn) {
@@ -126,15 +127,16 @@ void findRoute(uint8_t target){
                     printf("driveTile(%d);\n", forwardCount);
                 forwardCount = 1;
                 printf(("turnRight();\n"));
+                setRoboDir(to);
                 break;
             case -1:
                 if(forwardCount)
                     printf("driveTile(%d);\n", forwardCount);
                 forwardCount = 1;
                 printf(("turnLeft();\n"));
+                setRoboDir(to);
                 break;
         }
-        setRoboDir(to);
         currentIndex = route[j];
     }
     if(forwardCount){
@@ -144,8 +146,15 @@ void findRoute(uint8_t target){
     setRoboDir(turnDirections(getRoboDir(), 2, true));
     forwardCount = 0;
 
-    for (int j = (mapTiles[target].distance - 2); j >= 0; --j) {
-        direction to = headsTo(currentIndex, route[j]);
+    // drive back
+    uint8_t routeBack[dist + 1];
+    routeBack[0] = start;
+    for (uint8_t k = 0; k < dist + 1; k++) {
+        routeBack[k+1] = route[k];
+    }
+
+    for (uint8_t k = (dist - 1); k < INT8_MAX; --k) {
+        direction to = headsTo(currentIndex, routeBack[k]);
         int8_t turn = turnDegrees(to);
         switch (turn) {
             case 0:
@@ -156,21 +165,43 @@ void findRoute(uint8_t target){
                     printf("driveTile(%d);\n", forwardCount);
                 forwardCount = 1;
                 printf(("turnRight();\n"));
+                setRoboDir(to);
                 break;
             case -1:
                 if(forwardCount)
                     printf("driveTile(%d);\n", forwardCount);
                 forwardCount = 1;
                 printf(("turnLeft();\n"));
+                setRoboDir(to);
                 break;
         }
-        setRoboDir(to);
-        currentIndex = route[j];
+        currentIndex = routeBack[k];
     }
-    if(forwardCount){
-        printf("driveTile(%d);\n", forwardCount);
+    // turn the robot so it's facing downwards
+    switch (turnDegrees(S)) {
+        case 0:
+            forwardCount++;
+            break;
+        case 1:
+            if(forwardCount)
+                printf("driveTile(%d);\n", forwardCount);
+            printf(("turnRight();\n"));
+            setRoboDir(S);
+            break;
+        case -1:
+            if(forwardCount)
+                printf("driveTile(%d);\n", forwardCount);
+            printf(("turnLeft();\n"));
+            setRoboDir(S);
+            break;
+        case 2:
+            if(forwardCount)
+                printf("driveTile(%d);\n", forwardCount);
+            printf(("turnLeft();\n"));
+            printf(("turnLeft();\n"));
+            setRoboDir(S);
+            break;
     }
-    //TODO way to start
 }
 
 void printClosestTiles(){

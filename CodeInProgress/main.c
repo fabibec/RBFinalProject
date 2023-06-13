@@ -120,6 +120,8 @@ void findRoute(uint8_t target){
     }
     conv1Dto2D(route[mapTiles[target].distance - 1], &x, &y);
     printf("(%d,%d) [Target]\n", x, y);
+
+    //
 }
 
 void printClosestTiles(){

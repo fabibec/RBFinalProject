@@ -15,4 +15,11 @@ typedef struct{
     uint8_t prev; //address of previous
 } tile;
 
+typedef enum{
+    N,
+    E,
+    S,
+    W
+} direction;
+
 #endif //CODEINPROGRESS_TYPES_H

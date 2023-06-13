@@ -75,8 +75,10 @@ void exploreSurroundings(uint8_t index, uint8_t* adjacent){
     }
 }
 
-/*
+
 bool isCurve(uint8_t index1, uint8_t index2){
     uint8_t x1, x2, y1, y2;
-    conv1Dto2D(index1, &x, &y);
-}*/
+    conv1Dto2D(index1, &x1, &y1);
+    conv1Dto2D(index2, &x2, &y2);
+    return (x1 != x2 && y1 != y2);
+}

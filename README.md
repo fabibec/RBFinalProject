@@ -1,12 +1,14 @@
-# RBFinalProject
-This is the final project of our RB Course
+# Final Project - Introduction to Robotics
+### by Fabian Becker, Florian Remberger and Tanh
 
+We probably need to add some documentation here in the future
 
-- File reinkopieren in Programm und konvertieren (2-Dim Char Array?)
-- SuchAlgortithmus schreiben (Dijkstra)
-- Forwärtsfahren und drehen mit Parameter()
-- Kompass Sensor(?)
-- Drehzahlsensor
-- Ultraschallsensor
-- Optimierung der Ergebnisse von Dijkstra
-- Soundfunktion implementieren
+## TODO
+
+- [x] Import task data
+- [x] Pathfinding with Dijkstra Algorithm
+- [x] Implement sound function
+- [x] implement driveTile and turn functions
+- [ ] optimize driveTile function with speed sensor values
+- [ ] optimize Dijkstra results 
+- [ ] port code to robot

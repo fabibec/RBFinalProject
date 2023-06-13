@@ -141,11 +141,9 @@ void findRoute(uint8_t target){
         printf("driveTile(%d);\n", forwardCount);
     }
     printf("\tturnAround();\n");
-    setRoboDir((getRoboDir() + 2) % 4);
-    //printf("Robo is at %d", getRoboDir());
+    setRoboDir(turnDirections(getRoboDir(), 2, true));
     forwardCount = 0;
 
-    // TODO Way back
     for (int j = (mapTiles[target].distance - 2); j >= 0; --j) {
         direction to = headsTo(currentIndex, route[j]);
         int8_t turn = turnDegrees(to);
@@ -172,6 +170,7 @@ void findRoute(uint8_t target){
     if(forwardCount){
         printf("driveTile(%d);\n", forwardCount);
     }
+    //TODO way to start
 }
 
 void printClosestTiles(){

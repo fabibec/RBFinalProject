@@ -99,15 +99,31 @@ direction headsTo(uint8_t currentIndex, uint8_t nextIndex){
     }
 }
 
+bool enumUnderflow(direction d){
+    return ((uint8_t) d - 1) < 0;
+}
+
+direction turnDirections(direction d, int8_t steps,bool positive){
+    direction new = d;
+    for (int8_t i = 0; i < steps; ++i) {
+        if(positive){
+            new = ((new + 1) % 4);
+        } else{
+            if(!enumUnderflow(new))
+                new--;
+            else
+                new = 3;
+        }
+    }
+    return new;
+}
+
 // -1 left Turn; 0 no turn; 1 right Turn
 int8_t turnDegrees(direction to){
     direction currentDirection = roboDirection;
-    if((currentDirection + 1 % 4) == to){
+    if(((currentDirection + 1) % 4) == to){
         return 1;
-    } else if (currentDirection == N && to == W ){
-        return -1;
-    }
-    else if((currentDirection - 1 % 4) == to){
+    }  else if(turnDirections(currentDirection,1,false) == to){
         return -1;
     }
     return 0;

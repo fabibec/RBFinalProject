@@ -27,4 +27,9 @@ void fillTablePosition(uint8_t tableIndex, uint8_t i, uint8_t j);
 uint8_t minDistance();
 void exploreSurroundings(uint8_t index, uint8_t* adjacent);
 
+direction headsTo(uint8_t currentIndex, uint8_t nextIndex);
+int8_t turnDegrees(direction to);
+void setRoboDir(direction d);
+direction getRoboDir();
+
 #endif //CODEINPROGRESS_UTILS_H

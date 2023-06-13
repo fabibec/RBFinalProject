@@ -5,6 +5,8 @@
 #include "types.h"
 #include "debug.h"
 
+
+
 /* Matrix conversion */
 char mapStringMatrix[14][14];
 
@@ -110,18 +112,66 @@ void findRoute(uint8_t target){
         currentTile = mapTiles[currentTile].prev;
         i--;
     }
-    // print for debugging
-    uint8_t x, y;
-    conv1Dto2D(start, &x, &y);
-    printf("(%d,%d) [Start] -> ", x, y);
-    for (int j = 0; j < (mapTiles[target].distance - 1); ++j) {
-        conv1Dto2D(route[j], &x, &y);
-        printf("(%d,%d) -> ", x, y);
-    }
-    conv1Dto2D(route[mapTiles[target].distance - 1], &x, &y);
-    printf("(%d,%d) [Target]\n", x, y);
 
-    //
+    uint8_t currentIndex = start, forwardCount = 0;
+    for (int j = 0; j <= (mapTiles[target].distance - 1); ++j) {
+        direction to = headsTo(currentIndex, route[j]);
+        int8_t turn = turnDegrees(to);
+        switch (turn) {
+            case 0:
+                forwardCount++;
+                break;
+            case 1:
+                if(forwardCount)
+                    printf("driveTile(%d);\n", forwardCount);
+                forwardCount = 1;
+                printf(("turnRight();\n"));
+                break;
+            case -1:
+                if(forwardCount)
+                    printf("driveTile(%d);\n", forwardCount);
+                forwardCount = 1;
+                printf(("turnLeft();\n"));
+                break;
+        }
+        setRoboDir(to);
+        currentIndex = route[j];
+    }
+    if(forwardCount){
+        printf("driveTile(%d);\n", forwardCount);
+    }
+    printf("\tturnAround();\n");
+    setRoboDir((getRoboDir() + 2) % 4);
+    //printf("Robo is at %d", getRoboDir());
+    forwardCount = 0;
+
+    // TODO Way back
+    for (int j = (mapTiles[target].distance - 2); j >= 0; --j) {
+        direction to = headsTo(currentIndex, route[j]);
+        int8_t turn = turnDegrees(to);
+        switch (turn) {
+            case 0:
+                forwardCount++;
+                break;
+            case 1:
+                if(forwardCount)
+                    printf("driveTile(%d);\n", forwardCount);
+                forwardCount = 1;
+                printf(("turnRight();\n"));
+                break;
+            case -1:
+                if(forwardCount)
+                    printf("driveTile(%d);\n", forwardCount);
+                forwardCount = 1;
+                printf(("turnLeft();\n"));
+                break;
+        }
+        setRoboDir(to);
+        currentIndex = route[j];
+    }
+    if(forwardCount){
+        printf("driveTile(%d);\n", forwardCount);
+    }
 }
 
 void printClosestTiles(){
@@ -137,11 +187,8 @@ void printClosestTiles(){
     findRoute(tileIndex);
 }
 
-//TODO convert the path to node into actual driving instructions
-
 /* Dijkstra Pathfinding End */
 
-//TODO Driving & Use of sensors
 
 int main() {
     convertMapStringToMatrix();

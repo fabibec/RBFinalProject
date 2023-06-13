@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "motion.h"
 
 
 uint8_t conv2Dto1D(uint8_t row, uint8_t col){
@@ -81,4 +82,41 @@ bool isCurve(uint8_t index1, uint8_t index2){
     conv1Dto2D(index1, &x1, &y1);
     conv1Dto2D(index2, &x2, &y2);
     return (x1 != x2 && y1 != y2);
+}
+
+direction headsTo(uint8_t currentIndex, uint8_t nextIndex){
+    uint8_t x1, x2, y1, y2;
+    conv1Dto2D(currentIndex, &y1, &x1);
+    conv1Dto2D(nextIndex, &y2, &x2);
+    if((x1 + 1) == x2){
+        return E;
+    } else if ((x1 - 1) == x2){
+        return W;
+    } else if ((y1 - 1) == y2){
+        return N;
+    } else {
+        return S;
+    }
+}
+
+// -1 left Turn; 0 no turn; 1 right Turn
+int8_t turnDegrees(direction to){
+    direction currentDirection = roboDirection;
+    if((currentDirection + 1 % 4) == to){
+        return 1;
+    } else if (currentDirection == N && to == W ){
+        return -1;
+    }
+    else if((currentDirection - 1 % 4) == to){
+        return -1;
+    }
+    return 0;
+}
+
+void setRoboDir(direction d){
+    roboDirection = d;
+}
+
+direction getRoboDir(){
+    return roboDirection;
 }

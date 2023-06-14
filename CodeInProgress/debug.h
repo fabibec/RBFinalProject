@@ -3,8 +3,7 @@
 //
 #ifndef CODEINPROGRESS_DEBUG_H
 #define CODEINPROGRESS_DEBUG_H
-
-//#include <stdint.h>
+#include <stdint.h>
 #include "types.h"
 
 extern uint8_t start;

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="CodeInProgress" targetName="CodeInProgress" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="02dad323-2445-431b-a3b7-f8bdaddfaa8c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="1.3" />
+  </component>
+  <component name="ProjectId" id="2R6tVzmuUi2QZGwjElcHPuS3MjW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/fabi/Desktop/Studium/misc/RBFinalProject/CodeInProgress&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="CodeInProgress" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CodeInProgress" TARGET_NAME="CodeInProgress" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CodeInProgress" RUN_TARGET_NAME="CodeInProgress">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="02dad323-2445-431b-a3b7-f8bdaddfaa8c" name="Changes" comment="" />
+      <created>1686582386178</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686582386178</updated>
+      <workItem from="1686582387264" duration="3573000" />
+      <workItem from="1686650986062" duration="3000" />
+      <workItem from="1686653281740" duration="3523000" />
+      <workItem from="1686657301959" duration="7084000" />
+      <workItem from="1686664484795" duration="220000" />
+      <workItem from="1686665809214" duration="2872000" />
+      <workItem from="1686670932667" duration="657000" />
+      <workItem from="1686673393385" duration="3162000" />
+      <workItem from="1686735619437" duration="54000" />
+      <workItem from="1686735972139" duration="301000" />
+    </task>
+    <task id="LOCAL-00001" summary="Refactored Code">
+      <created>1686653674661</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1686653674661</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactored Code">
+      <created>1686654413395</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1686654413396</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Almost Working">
+      <created>1686664323819</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1686664323819</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Sone small changes">
+      <created>1686664634476</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1686664634476</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Bug Fixes in main.c and utils.c">
+      <created>1686668646742</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1686668646742</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Complete Path is now converted to driving instructions">
+      <created>1686675312840</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1686675312840</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Restored changes from @masterYoda8 accidentally deleted whilst solving merge conflict">
+      <created>1686676866186</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1686676866186</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="false" />
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticFoundErrors value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Refactored Code" />
+    <MESSAGE value="Almost Working" />
+    <MESSAGE value="Sone small changes" />
+    <MESSAGE value="Bug Fixes in main.c and utils.c" />
+    <MESSAGE value="Complete Path is now converted to driving instructions" />
+    <MESSAGE value="Restored changes from @masterYoda8 accidentally deleted whilst solving merge conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restored changes from @masterYoda8 accidentally deleted whilst solving merge conflict" />
+  </component>
+</project>

@@ -488,7 +488,7 @@
 
 #define NXT_MOTORB_ENCODER_B_EXTI_Port			EXTI_PortSourceGPIOD
 #define NXT_MOTORB_ENCODER_B_EXTI_PinSource		EXTI_PinSource14        //this is usually pin b, but we need this for having easy configuration possibilities
-#define NXT_MOTORB_ENCODER_B_EXTI_Line			EXTI_Line13
+#define NXT_MOTORB_ENCODER_B_EXTI_Line			EXTI_Line14
 #define NXT_MOTORB_ENCODER_B_IRQChannel			EXTI15_10_IRQn
 
 #define NXT_MOTORB_ENCODER_B_Pin                GPIO_Pin_15
@@ -546,7 +546,7 @@
 #define NXT_MOTORC_ENCODER_B_EXTI_Port			EXTI_PortSourceGPIOA
 #define NXT_MOTORC_ENCODER_B_EXTI_PinSource		EXTI_PinSource1
 #define NXT_MOTORC_ENCODER_B_EXTI_Line			EXTI_Line1
-#define NXT_MOTORC_ENCODER_B_IRQChannel			EXTI0_IRQn
+#define NXT_MOTORC_ENCODER_B_IRQChannel			EXTI1_IRQn
 
 #define NXT_MOTORC_ENCODER_B_Pin                GPIO_Pin_1
 #define NXT_MOTORC_ENCODER_B_Port               GPIOA

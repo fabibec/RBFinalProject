@@ -72,6 +72,9 @@ void OnBoardPeriph_LED_Toggle(onboardled_t led){
 }
 
 void OnBoardPeriph_Button_Init(onboardbutton_t button){
+    if(button == Button_Bottom)
+        return; // skipping button Bottom init since it overwrites Motor B Encoder B interrupt
+
     EXTI_InitTypeDef EXTI_InitStructure;
 	GPIO_InitTypeDef GPIO_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
@@ -89,6 +92,9 @@ void OnBoardPeriph_Button_Init(onboardbutton_t button){
 
 	EXTI_InitStructure.EXTI_Line = OnBoard_Buttons[button].ExtiLine;
 	EXTI_InitStructure.EXTI_LineCmd = DISABLE;
+	// Fixed error: fully initializing EXTI: set mode to interrupt and trigger to rising edge; without this other EXTIs get messed up
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
 	EXTI_Init(&EXTI_InitStructure);
 
 	NVIC_InitStructure.NVIC_IRQChannel = OnBoard_Buttons[button].IRQChannel;

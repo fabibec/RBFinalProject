@@ -175,12 +175,8 @@ void EXTI0_IRQHandler(void)
 		EXTI_ClearITPendingBit(NXT_MOTORC_ENCODER_A_EXTI_Line);
 		Motor_Info[Port_C].counterEncoderA++;
 	}
-	if(EXTI_GetITStatus(NXT_MOTORC_ENCODER_B_EXTI_Line) != RESET)
-    {
-        EXTI_ClearITPendingBit(NXT_MOTORC_ENCODER_B_EXTI_Line);
-        Motor_Info[Port_C].counterEncoderB++;
+	// Fixed: moved interrupt handling of motor C encoder B to EXTI1 handler
 
-    }
 	SEGGER_SYSVIEW_RecordExitISR();
 }
 
@@ -190,7 +186,13 @@ void EE_CORTEX_MX_EXTI1_ISR(void);
 void EXTI1_IRQHandler(void)
 #endif
 {
+	// Fixed: moved interrupt handling of motor C encoder B to EXTI1 handler
+	if(EXTI_GetITStatus(NXT_MOTORC_ENCODER_B_EXTI_Line) != RESET)
+    {
+        EXTI_ClearITPendingBit(NXT_MOTORC_ENCODER_B_EXTI_Line);
+        Motor_Info[Port_C].counterEncoderB++;
 
+    }
 }
 
 
@@ -258,14 +260,14 @@ void EXTI15_10_IRQHandler(void)
         Motor_Info[Port_B].counterEncoderB++;
 
     }
-	if(EXTI_GetITStatus(NXT_OnBoard_BUTTONB_EXTI_Line) != RESET){
+/*	if(EXTI_GetITStatus(NXT_OnBoard_BUTTONB_EXTI_Line) != RESET){
 	    EXTI_ClearITPendingBit(NXT_OnBoard_BUTTONB_EXTI_Line);
 #if(NNXT_OS==FREERTOS)
         xTaskNotifyFromISR(NNXT_Background_Task, (1 << OnBoard_Buttons[Button_Bottom].Notification_Bit), eSetBits, NULL);
 #else
 
-#endif
-	}
+#endif 
+	} */
     if(EXTI_GetITStatus(NXT_OnBoard_BUTTONR_EXTI_Line) != RESET){
         EXTI_ClearITPendingBit(NXT_OnBoard_BUTTONR_EXTI_Line);
 #if(NNXT_OS==FREERTOS)

@@ -2,7 +2,6 @@
 #include "types.h"
 #include "nnxt.h"
 
-
 direction roboDirection = S;
 
 /* Matrix conversion */

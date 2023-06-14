@@ -1,7 +1,29 @@
 # Final Project - Introduction to Robotics
-### by Fabian Becker, Florian Remberger and Tanh
+### by Fabian Becker, Florian Remberger & Quang Thanh Lai
 
-We probably need to add some documentation here in the future
+## Project Description
+The aim of this project is for the robot to make it's way through a predefinied map and navigate to two destinations.
+
+## Task Importing
+
+## Pathfinding and Route Creation
+Dijkstra's Algorithm is used for pathfinding
+
+## Driving Controls
+
+## Individual Contributions
+### Fabian Becker (Pathfinding & Route Creation
+TODO
+
+### Florian Remberger (Importing & Driving Controls)
+TODO
+
+### Quang Thanh Lai (Route Creation &  Driving Controls)
+TODO
+
+
+---
+
 
 ## TODO
 

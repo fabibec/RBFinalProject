@@ -69,8 +69,8 @@ void turn(uint8_t dir) {
     Motor_Tacho_GetCounter(RIGHT_MOTOR, &prev_degR);
     Motor_Tacho_GetCounter(LEFT_MOTOR, &prev_degL);
 
-    Motor_Drive(LEFT_MOTOR, ((dir) ? Motor_dir_backward: Motor_dir_forward), 30);
-    Motor_Drive(RIGHT_MOTOR, ((dir) ? Motor_dir_forward: Motor_dir_backward), 30);
+    Motor_Drive(LEFT_MOTOR, ((dir) ? Motor_dir_backward: Motor_dir_forward), 20);
+    Motor_Drive(RIGHT_MOTOR, ((dir) ? Motor_dir_forward: Motor_dir_backward), 20);
     while (distanceL > 0 || distanceR > 0) {
         sprintf(msg, "%d", (int)distanceL);
         sprintf(msg1, "%d", (int)distanceR);
@@ -94,8 +94,8 @@ void turn(uint8_t dir) {
         Delay(150);
     }
 
-    Motor_Stop(RIGHT_MOTOR, Motor_stop_break);
-    Motor_Stop(LEFT_MOTOR, Motor_stop_break);
+    Motor_Stop(RIGHT_MOTOR, Motor_stop_float);
+    Motor_Stop(LEFT_MOTOR, Motor_stop_float);
 }
 
 void turnLeft(){

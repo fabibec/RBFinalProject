@@ -151,9 +151,9 @@ void Startup_NNXT(){
 	OnBoardPeriph_I2CMux_Reset();
 
 
-	//SDCard_Init_Pins();
+	//SDCard_Init_Pins(); // not used
 	NNXT_LCD_INIT();
-	OnBoardPeriph_Beep_Init();
+	//OnBoardPeriph_Beep_Init(); // skipped bc of motor encoder tests
 	Delay(20);
 	NNXT_LCD_Rotate(LCD_Rotation_Default);
 
@@ -177,7 +177,7 @@ void Startup_NNXT(){
     }
     while(!debug)
     {
-        debug = OnBoardPeriph_Button_GetState(Button_Bottom);
+        debug = OnBoardPeriph_Button_GetState(Button_Right); // Fixed: changed from Bottom to Right, since Bottom is deactivated
     }
 
     NNXT_LCD_Clear(LCD_COLOR_WHITE);
@@ -199,7 +199,7 @@ void DisplayStartButton()
         {
             for(int j = 47; j <=57; j++)
             {
-                NNXT_LCD_DrawPixel(i, j, colorBlack);
+                NNXT_LCD_DrawPixel(i, j, colorBlack); // top
             }
         }
 
@@ -207,7 +207,7 @@ void DisplayStartButton()
         {
             for(int j = 67; j <=77; j++)
             {
-                NNXT_LCD_DrawPixel(i, j, colorBlack);
+                NNXT_LCD_DrawPixel(i, j, colorBlack); // left ?
             }
         }
 
@@ -215,7 +215,7 @@ void DisplayStartButton()
         {
             for(int j = 67; j <=77; j++)
             {
-                NNXT_LCD_DrawPixel(i, j, colorBlack);
+                NNXT_LCD_DrawPixel(i, j, colorBlack); // middle
             }
         }
 
@@ -223,7 +223,7 @@ void DisplayStartButton()
         {
             for(int j = 67; j <=77; j++)
             {
-                NNXT_LCD_DrawPixel(i, j, colorBlack);
+                NNXT_LCD_DrawPixel(i, j, colorRed); // right ?
             }
         }
 
@@ -231,7 +231,7 @@ void DisplayStartButton()
         {
             for(int j = 87; j <=97; j++)
             {
-                NNXT_LCD_DrawPixel(i, j, colorRed);
+                NNXT_LCD_DrawPixel(i, j, colorBlack); // Bottom
             }
         }
         NNXT_LCD_DisplayStringAt(67,88,"Start", LEFT_MODE);

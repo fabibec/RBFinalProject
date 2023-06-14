@@ -246,6 +246,7 @@ sensor_error_t Motor_Stop(const motorport_t port, const motor_stop_t stop);
  * @todo how much rising edges are 1 umin
  */
 sensor_error_t Motor_Tacho_GetCounter(const motorport_t port, uint32_t *counter);
+sensor_error_t Motor_Tacho_GetCounter2(const motorport_t port, uint32_t *counter);
 
 /**
  * @}

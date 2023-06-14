@@ -274,3 +274,13 @@ sensor_error_t Motor_Tacho_GetCounter(const motorport_t port, uint32_t *counter)
 
 	return ret_var;
 }
+
+sensor_error_t Motor_Tacho_GetCounter2(const motorport_t port, uint32_t *counter){
+	sensor_error_t ret_var = sensor_error_NoError;
+
+
+	*counter = Motor_Info[port].counterEncoderB;
+	//*counterB = Motor_Info[port].counterEncoderB;
+
+	return ret_var;
+}

@@ -37,39 +37,37 @@ mapStringMatrix[i/14][i%14] = mapString[i]
 
 ## Driving Controls
 ### function driveTiles(uint8_t tiles) 
-Located in motion.c file this function makes the robot drive forward in a straight line.
-The input parameter tiles represents the amount of tiles (each tile 25cm long) the robot should drive forward.
-Using a 14x14 map the data type of tiles uint8_t will be definitely sufficient because we can not drive more than 12 tiles forward at once before hitting a wall.
+This function is located in the motion.c file. 
+It makes the robot move forward in a straight line. 
+The input parameter tiles represents the number of tiles (each tile has a length of 25 cm) that the robot should move forward. 
+Using a 14x14 map, the tiles datatype uint8_t will be sufficient because we cannot move more than 12 tiles before hitting a wall. 
 
-The first thing this function does is calculating the distance it should drive.
-This calculation is quite easy because we only have to multiply the tiles with 25 (cm) to get the total distance we want to drive.
-Because we do not want to use floating point values later on we also multiply the distance we already calculated with 1000.
+Calculating the distance to travel is the first thing this function does. 
+This calculation is quite simple, because we only have to multiply the tiles by 25 (cm) to get the total distance we want to move. We also multiply the already calculated distance by 1000 because we do not want to use floating point values.  
 
-After calculating the distane we declare two variables which we will use to calculate the difference of degree.
+After calculating the distance, we declare two variables. We will use them to calculate the difference in degrees.  
 
-Now we get the current degree of the wheels and store this value in prev_deg variable.
+Now we get the current degree of the wheels. We store this value in the prev_deg variable.  
 
-The general logic of this drive function is, that we first start the motors and then check how much distance we traveled since we last checked.
-We the subtract the traveled distance from the total distance we have to travel.
-If the total distance will be less then 2cm (represented as 2000 in our code due to the multiplication with 1000 earlier)
-we stop the motors and via Motor_stop_float.
+The general logic of this drive function is: 
+First we start the motors and then we check how much distance we have traveled since the last check. 
+From the total distance we have to travel, we subtract the distance traveled. 
+We stop the motors and set Motor_stop_float if the total distance is less than 2cm (represented as 2000 in our code due to the multiplication with 1000 earlier).  
+So the first thing inside the while loop has to be a delay. So we do not get the same degree value as just before the while loop. 
+We let the motors run for 200ms. So we can be sure that we get a bigger degree value.  
+Now that we have the new degree value and have stored it in the deg variable, we need to calculate the distance that the robot has moved. 
+This calculation is quite complex. So I want to break it down into smaller steps:
 
-So the first thing within the while-loop has to be a delay so we do not get the same degree value as we got just before the while-loop.
-We let the motors drive for 200ms so we can be certain that we get a bigger degree value.
+1) **Calculate the difference between the old degree value and the new degree value**. This can be done by subtracting the old value stored in prev_deg from the current degree value stored in deg. In our code we use the function getAbsDiff which calculated the absolute difference so we do not get any negative numbers.
+2) **Multiply** the number we just calculated **by 2**. The Motor_Tacho_GetCounter function will return 1 for every two degrees the motor has rotated. 
+3) **Divide it by 360.0**. 360 degrees would be a full turn of the motor and therefore a full turn of the wheel. What we want to calculate here is how many times the wheel has turned. The .0 guarantees, that the result will be of type double so we do not lose precision.
+4) **Multiply by CIRCUMFERENCE**. CIRCUMFERENCE is the circumference of the wheel. After this step, we now know excactly how many centimeters the robot has moved since the last check. 
+5) **Multiply by 1000**. If we did not multiply by 1000, we would lose the decimal places because we are subtracting a double from an int. Because of this step we also had to multiply by 1000 when we first calculated the total distance.
 
-After getting the new degree value and storing it inside deg variable we now have to calculate the distance 
-the robot traveled.
-This calculation is quite complex so i want to break it down into smaller steps:
-1) **Calculate difference between old degree value and new degree value**. This can be done by subtracting the old value stored in prev_deg from the current degree value stored in deg. In our code we use the function getAbsDiff which calculated the absolute difference so we do not get any negative numbers.
-2) **Multiply** the number we just calculated **by 2**. The function Motor_Tacho_GetCounter will return 1 for every two degrees the motor rotated. 
-3) **Divide it by 360.0**. 360 degree would be a full spin of the motor and therefore also of the wheel. What we want to calculate here is how often the wheel rotated. The .0 guarantees, that the result will be of type double so we do not lose precision.
-4) **Multiply by CIRCUMFERENCE**. CIRCUMFERENCE represents the circumference of the wheel. After this step we now excactly how much centimeter the robot traveled since we last checked. 
-5) **Multiply by 1000**. If we would not multiply by 1000 here we could lose the decimal places because we subtract a double from a int here. Because of this step we also had to multiply by 1000 when we first calculated the total distance.
+After calculating the distance we can simply subtract it from the total distance and set prev_deg to deg.
 
-After we calculated the distance we can simply subtract it from the total distance and set prev_deg to deg.
-
-This procedure will be followed until the distance is less or equal to 2cm. 
-If so we will stop the motors and the function will exit.
+This procedure is repeated until the distance is less than or equal to 2cm. 
+If this is the case, the motors will stop and the function will end.
 
 
 ### Quang Thanh Lai (Route Creation &  Driving Controls)

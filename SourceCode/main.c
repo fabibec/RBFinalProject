@@ -226,11 +226,15 @@ void findRoute(uint8_t target){
 
 int main(){
     convertMapStringToMatrix();
+    findStartAndTablePosition();
     while(1){
         for(int i = 0; i < 14; ++i){
             for(int j = 0; j < 14; ++j){
                 if(mapStringMatrix[i][j] == '#')
                     drawBlock(i, j, LCD_COLOR_BLACK);
+                else if(mapStringMatrix[i][j] == 'S')
+                    //drawS(i, j, LCD_COLOR_GREEN);
+                    drawSymbol(i, j, _start, LCD_COLOR_GREEN);
 
             }
         }
@@ -247,5 +251,15 @@ int main(){
     findRoute(closestDestTiles[1]);
     makeSound();
     */
+    /*
+    initMotorPorts();
+    turnLeft();
+    Delay(500);
+    turnRight();
+    Delay(500);
+    turnAround();
+    makeSound();
+    Delay(500);*/
+
     return 0;
 }

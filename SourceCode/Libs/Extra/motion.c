@@ -60,6 +60,8 @@ uint32_t getAbsDiff(uint32_t a, uint32_t b) {
 void turn(uint8_t dir) {
     char msg[20];
     char msg1[20];
+    char msg2[20];
+    char msg3[20];
 
 
     int16_t distanceL, distanceR;
@@ -69,6 +71,7 @@ void turn(uint8_t dir) {
     uint8_t motorR = 20;
     uint8_t diffL = 0;
     uint8_t diffR = 0;
+    uint8_t offSet = 1;
 
     Motor_Tacho_GetCounter(RIGHT_MOTOR, &prev_degR);
     Motor_Tacho_GetCounter(LEFT_MOTOR, &prev_degL);
@@ -84,6 +87,7 @@ void turn(uint8_t dir) {
         if (distanceL <= 0) {
             Motor_Stop(LEFT_MOTOR, Motor_stop_break);
         } else {
+            Motor_Drive(LEFT_MOTOR, ((dir) ? Motor_dir_backward: Motor_dir_forward), motorL);
             Motor_Tacho_GetCounter(LEFT_MOTOR, &degL);
             diffL = getAbsDiff(degL, prev_degL);
             distanceL -= ((diffL*2/360.0) * CIRCUMFERENCE * 1000);
@@ -93,10 +97,26 @@ void turn(uint8_t dir) {
             Motor_Stop(RIGHT_MOTOR, Motor_stop_break);
         } else {
             Motor_Tacho_GetCounter(RIGHT_MOTOR, &degR);
+            Motor_Drive(RIGHT_MOTOR, ((dir) ? Motor_dir_forward: Motor_dir_backward), motorR);
             diffR = getAbsDiff(degR, prev_degR);
             distanceR -= ((diffR*2/360.0) * CIRCUMFERENCE * 1000);
             prev_degR = degR;
         }
+        if(diffL != diffR){
+            if((diffL + offSet) < diffR)
+            {
+                ++motorL;
+                sprintf(msg2, "%d changed left", (int)motorL);
+                printText(4, msg2);
+            }
+            else if(diffL > (diffR + offSet))
+            {
+                ++motorR;
+                sprintf(msg3, "%d changed right", (int)motorR);
+                printText(5, msg3);
+            }
+        }
+
         Delay(150);
     }
 

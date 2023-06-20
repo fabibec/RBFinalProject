@@ -1,4 +1,5 @@
 #include "motion.h"
+
 #include "types.h"
 #include "nnxt.h"
 
@@ -17,10 +18,10 @@ void initMotorPorts(){
 
 void driveTile(uint8_t tiles){
     // distance which should be driven in
-    char msg[20];
-    char msg1[20];
-    char msg2[20];
-    char msg3[20];
+    //char msg[20];
+    //char msg1[20];
+    //char msg2[20];
+    //char msg3[20];
     int32_t distance = 25 * tiles * 1000;
 
     uint32_t deg, prev_deg;
@@ -59,10 +60,10 @@ uint32_t getAbsDiff(uint32_t a, uint32_t b) {
 }
 
 void turn(uint8_t dir) {
-    char msg[20];
-    char msg1[20];
-    char msg2[20];
-    char msg3[20];
+    //char msg[20];
+    //char msg1[20];
+    //char msg2[20];
+    //char msg3[20];
 
 
     int16_t distanceL, distanceR;

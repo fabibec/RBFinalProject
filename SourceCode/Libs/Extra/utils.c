@@ -35,11 +35,11 @@ void initTablesArray(){
 }
 
 
-void fillTablePosition(uint8_t tableIndex, uint8_t i, uint8_t j){
+void fillTablePosition(uint8_t tableIndex, uint8_t posX, uint8_t posY){
     if(tables[tableIndex].index1 == UINT8_MAX){
-        tables[tableIndex].index1 = conv2Dto1D(i, j);
+        tables[tableIndex].index1 = conv2Dto1D(posX, posY);
     } else {
-        tables[tableIndex].index2 = conv2Dto1D(i, j);
+        tables[tableIndex].index2 = conv2Dto1D(posX, posY);
     }
 }
 

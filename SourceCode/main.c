@@ -1,9 +1,11 @@
 #include "mapDisplay.h"
 #include "utils.h"
 #include "types.h"
+#include "motion.h"
 #include "nnxt.h"
 
 direction roboDirection = S;
+
 
 /* Matrix conversion */
 char mapStringMatrix[14][14];
@@ -24,7 +26,6 @@ void convertMapStringToMatrix(){
 #     #    22#\
 #     #      #\
 ##############";
-   // const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
 
     //const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
 
@@ -34,8 +35,8 @@ void convertMapStringToMatrix(){
 }
 /* Matrix conversion End*/
 
-/* Tracking start and possible end positions */
 
+/* Tracking start and possible end positions */
 uint8_t destinations[] = {3, 3};
 // start index is stored as 1D index
 uint8_t start;
@@ -47,31 +48,35 @@ void findStartAndTablePosition(){
     initTablesArray();
 
     char currentChar;
-    uint8_t x;
+    uint8_t tableIndex;
     for (int8_t i = 1; i < 13; i++){
         for (int8_t j = 1; j < 13; j++) {
             currentChar = mapStringMatrix[i][j];
             if (isStartPosition(currentChar)) {
                 start = conv2Dto1D(i,j);
             } else if (isTablePosition(currentChar)){
-                x = (currentChar - '1');
-                fillTablePosition(x, i, j);
+                tableIndex = (currentChar - '1');
+                fillTablePosition(tableIndex, i, j);
             }
         }
     }
 }
 /* Tracking start and possible end positions - end */
 
+
 /* Dijkstra Pathfinding */
 tile mapTiles[196];
 uint8_t closestDestTiles[2];
-
-void dijkstra(){
+void initMapTiles(){
     for(uint8_t i = 0; i < 196; ++i){
         mapTiles[i].visited = false;
         mapTiles[i].distance = UINT8_MAX;
         mapTiles[i].prev = i;
     }
+}
+void dijkstra(){
+    initMapTiles();
+
     mapTiles[start].distance = 0;
 
     for (uint8_t count = 0; count < 196 - 1; count++) {

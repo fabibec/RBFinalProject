@@ -1,4 +1,5 @@
 #include "mapDisplay.h"
+#include "utils.h"
 
 extern char mapStringMatrix[14][14];
 
@@ -179,7 +180,6 @@ void printMap(){
                 drawSymbolTwo(i, j, 0x0371);
             else if(mapStringMatrix[i][j] == '3')
                 drawSymbolThree(i, j, 0x0371);
-
         }
     }
 }

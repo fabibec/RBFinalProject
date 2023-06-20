@@ -1,13 +1,12 @@
 #include "utils.h"
 #include "motion.h"
+#include <stdint.h>
 
-void clearLine(uint8_t line)
-{
+
+void clearLine(uint8_t line){
     NNXT_LCD_ClearStringLine((uint16_t)line);
 }
-
-void printText(uint8_t line, char *ptr)
-{
+void printText(uint8_t line, char *ptr){
     clearLine(line);
     NNXT_LCD_DisplayStringAtLine(line, ptr);
 }
@@ -16,16 +15,15 @@ void printText(uint8_t line, char *ptr)
 uint8_t conv2Dto1D(uint8_t row, uint8_t col){
     return row * 14 + col;
 }
-
 void conv1Dto2D(uint8_t index, uint8_t* row, uint8_t* col){
     *row = index / 14;
     *col = index % 14;
 }
 
+
 bool isTablePosition(char c){
     return (c == '1' || c == '2' || c == '3');
 }
-
 bool isStartPosition(char c){
     return c == 'S';
 }
@@ -36,6 +34,7 @@ void initTablesArray(){
     }
 }
 
+
 void fillTablePosition(uint8_t tableIndex, uint8_t i, uint8_t j){
     if(tables[tableIndex].index1 == UINT8_MAX){
         tables[tableIndex].index1 = conv2Dto1D(i, j);
@@ -44,45 +43,46 @@ void fillTablePosition(uint8_t tableIndex, uint8_t i, uint8_t j){
     }
 }
 
-bool leftExits(uint8_t index){
+
+bool leftExists(uint8_t index){
     return index != 0 || index % 14 != 0;
 }
-
-bool rightExits(uint8_t index){
+bool rightExists(uint8_t index){
     return index != 196 - 1 || index % 14 != 13;
 }
-
-bool aboveExits(uint8_t index){
+bool aboveExists(uint8_t index){
     return index >= 14;
 }
-
-bool belowExits(uint8_t index){
+bool belowExists(uint8_t index){
     return index <= 196 - 1 - 14;
 }
 
-// utility function for dijkstra - finds the next vertex the needs to be processed
+
+// utility function for dijkstra - finds the next vertex that needs to be processed
 uint8_t minDistance(){
-    uint8_t min = UINT8_MAX;
-    uint8_t min_index;
+    uint8_t minimal = UINT8_MAX;
+    uint8_t minIndex;
 
-    for (uint8_t v = 0; v < 196; v++)
-        if (mapTiles[v].visited == false && mapTiles[v].distance <= min)
-            min = mapTiles[v].distance, min_index = v;
+    for (uint8_t v = 0; v < 196; v++){
+        if (mapTiles[v].visited == false && mapTiles[v].distance <= minimal){
+            minimal = mapTiles[v].distance;
+            minIndex = v;
+        }
+    }
 
-    return min_index;
+    return minIndex;
 }
-
 void exploreSurroundings(uint8_t index, uint8_t* adjacent){
-    if(aboveExits(index)){
+    if(aboveExists(index)){
         adjacent[0] = index - 14;
     }
-    if(belowExits(index)){
+    if(belowExists(index)){
         adjacent[1] = index + 14;
     }
-    if(leftExits(index)){
+    if(leftExists(index)){
         adjacent[2] = index - 1;
     }
-    if(rightExits(index)){
+    if(rightExists(index)){
         adjacent[3] = index + 1;
     }
 }

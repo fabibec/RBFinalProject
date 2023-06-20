@@ -234,7 +234,7 @@ void findRoute(uint8_t target){
 
 int main(){
     initMotorPorts();
-    Delay(1000);
+    //Delay(1000);
     convertMapStringToMatrix();
     findStartAndTablePosition();
     printMap();
@@ -244,26 +244,5 @@ int main(){
     findRoute(closestDestTiles[0]);
     findRoute(closestDestTiles[1]);
     makeSound();
-    /*
-    initMotorPorts();
-    turnLeft();
-    Delay(500);
-    turnRight();
-    Delay(500);
-    turnAround();
-    makeSound();
-    Delay(500);*/
-    /*
-    drawSymbolStart(0, 0, LCD_COLOR_BLUE);
-    //drawSymbolOne(0, 1, 0x4BC4);
-    drawSymbolOne(0, 1, 0xFB0A);
-    drawSymbolTwo(0, 2, 0x75C8);
-    drawSymbolThree(0, 3, LCD_COLOR_BLUE);
-    drawSymbolUp(1, 0, LCD_COLOR_BLUE);
-    drawSymbolDown(1, 1, LCD_COLOR_BLUE);
-    drawSymbolLeft(1, 2, LCD_COLOR_BLUE);
-    drawSymbolRigth(1, 3, LCD_COLOR_BLUE);
-*/
-
     return 0;
 }

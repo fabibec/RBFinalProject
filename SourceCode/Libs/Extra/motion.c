@@ -65,12 +65,16 @@ void turn(uint8_t dir) {
     int16_t distanceL, distanceR;
     distanceL = distanceR = (2.0 * 3.14) * 1000;
     uint32_t prev_degL, prev_degR, degL, degR;
+    uint8_t motorL = 20;
+    uint8_t motorR = 20;
+    uint8_t diffL = 0;
+    uint8_t diffR = 0;
 
     Motor_Tacho_GetCounter(RIGHT_MOTOR, &prev_degR);
     Motor_Tacho_GetCounter(LEFT_MOTOR, &prev_degL);
 
-    Motor_Drive(LEFT_MOTOR, ((dir) ? Motor_dir_backward: Motor_dir_forward), 20);
-    Motor_Drive(RIGHT_MOTOR, ((dir) ? Motor_dir_forward: Motor_dir_backward), 20);
+    Motor_Drive(LEFT_MOTOR, ((dir) ? Motor_dir_backward: Motor_dir_forward), motorL);
+    Motor_Drive(RIGHT_MOTOR, ((dir) ? Motor_dir_forward: Motor_dir_backward), motorR);
     while (distanceL > 0 || distanceR > 0) {
         sprintf(msg, "%d", (int)distanceL);
         sprintf(msg1, "%d", (int)distanceR);
@@ -81,14 +85,16 @@ void turn(uint8_t dir) {
             Motor_Stop(LEFT_MOTOR, Motor_stop_break);
         } else {
             Motor_Tacho_GetCounter(LEFT_MOTOR, &degL);
-            distanceL -= ((getAbsDiff(degL, prev_degL)*2/360.0) * CIRCUMFERENCE * 1000);
+            diffL = getAbsDiff(degL, prev_degL);
+            distanceL -= ((diffL*2/360.0) * CIRCUMFERENCE * 1000);
             prev_degL = degL;
         }
         if (distanceR <= 0) {
             Motor_Stop(RIGHT_MOTOR, Motor_stop_break);
         } else {
             Motor_Tacho_GetCounter(RIGHT_MOTOR, &degR);
-            distanceR -= ((getAbsDiff(degR, prev_degR)*2/360.0) * CIRCUMFERENCE * 1000);
+            diffR = getAbsDiff(degR, prev_degR);
+            distanceR -= ((diffR*2/360.0) * CIRCUMFERENCE * 1000);
             prev_degR = degR;
         }
         Delay(150);

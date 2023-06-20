@@ -110,6 +110,19 @@
 		<Unit filename="Libs\Display\src\stm32_adafruit_lcd.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Libs\Extra\mapDisplay.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Libs\Extra\mapDisplay.h" />
+		<Unit filename="Libs\Extra\motion.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Libs\Extra\motion.h" />
+		<Unit filename="Libs\Extra\types.h" />
+		<Unit filename="Libs\Extra\utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Libs\Extra\utils.h" />
 		<Unit filename="Libs\FreeRTOS\FreeRTOS_glue.c">
 			<Option compilerVar="CC" />
 		</Unit>

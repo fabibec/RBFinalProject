@@ -1,3 +1,4 @@
+#include "mapDisplay.h"
 #include "utils.h"
 #include "types.h"
 #include "nnxt.h"
@@ -8,7 +9,24 @@ direction roboDirection = S;
 char mapStringMatrix[14][14];
 
 void convertMapStringToMatrix(){
-    const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
+    const char* mapString = "\
+##############\
+# S          #\
+######       #\
+#    #       #\
+#            #\
+# 11 ######  #\
+######       #\
+#       ######\
+##### #      #\
+#33   ###### #\
+#     #      #\
+#     #    22#\
+#     #      #\
+##############";
+   // const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
+
+    //const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
 
     for (uint8_t i = 0; i < 196; i++) {
         mapStringMatrix[(i/14)][(i%14)] = mapString[i];
@@ -111,7 +129,7 @@ void findRoute(uint8_t target){
         i--;
     }
     makeSound();
-    
+
     // drive to target
     uint8_t currentIndex = start, forwardCount = 0;
     for (uint8_t j = 0; j <= (dist - 1); ++j) {
@@ -207,6 +225,17 @@ void findRoute(uint8_t target){
 /* Dijkstra Pathfinding End */
 
 int main(){
+    convertMapStringToMatrix();
+    while(1){
+        for(int i = 0; i < 14; ++i){
+            for(int j = 0; j < 14; ++j){
+                if(mapStringMatrix[i][j] == '#')
+                    drawBlock(i, j, LCD_COLOR_BLACK);
+
+            }
+        }
+    }
+    /*
     initMotorPorts();
     Delay(1000);
     convertMapStringToMatrix();
@@ -217,6 +246,6 @@ int main(){
     findRoute(closestDestTiles[0]);
     findRoute(closestDestTiles[1]);
     makeSound();
-
+    */
     return 0;
 }

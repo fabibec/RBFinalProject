@@ -63,10 +63,10 @@ uint8_t minDistance(){
     uint8_t minimal = UINT8_MAX;
     uint8_t minIndex;
 
-    for (uint8_t v = 0; v < 196; v++){
-        if (mapTiles[v].visited == false && mapTiles[v].distance <= minimal){
-            minimal = mapTiles[v].distance;
-            minIndex = v;
+    for (uint8_t index = 0; index < 196; index++){
+        if (mapTiles[index].visited == false && mapTiles[index].distance <= minimal){
+            minimal = mapTiles[index].distance;
+            minIndex = index;
         }
     }
 
@@ -97,8 +97,11 @@ bool isCurve(uint8_t index1, uint8_t index2){
 
 direction headsTo(uint8_t currentIndex, uint8_t nextIndex){
     uint8_t x1, x2, y1, y2;
+
+    //TODO: change parameter from y,x to x,y
     conv1Dto2D(currentIndex, &y1, &x1);
     conv1Dto2D(nextIndex, &y2, &x2);
+
     if((x1 + 1) == x2){
         return E;
     } else if ((x1 - 1) == x2){
@@ -130,16 +133,17 @@ direction turnDirections(direction d, int8_t steps,bool clockwise){
 }
 
 // -1 left Turn; 0 no turn; 1 right Turn; 2 180 deg
-int8_t turnDegrees(direction to){
+int8_t turnDegrees(direction turnsTo){
     direction currentDirection = roboDirection;
-    if(((currentDirection + 1) % 4) == to){
+
+    if(((currentDirection + 1) % 4) == turnsTo)
         return 1;
-    } else if(turnDirections(currentDirection,1,false) == to){
+    else if(turnDirections(currentDirection, 1, false) == turnsTo)
         return -1;
-    } else if(turnDirections(currentDirection,2,true) == to){
+    else if(turnDirections(currentDirection, 2, true) == turnsTo)
         return 2;
-    }
-    return 0;
+    else
+        return 0;
 }
 
 void setRoboDir(direction d){

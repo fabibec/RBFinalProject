@@ -4,8 +4,8 @@
 #include "motion.h"
 #include "nnxt.h"
 
-direction roboDirection = S;
 
+direction roboDirection = S;
 
 /* Matrix conversion */
 char mapStringMatrix[14][14];
@@ -67,6 +67,7 @@ void findStartAndTablePosition(){
 /* Dijkstra Pathfinding */
 tile mapTiles[196];
 uint8_t closestDestTiles[2];
+
 void initMapTiles(){
     for(uint8_t i = 0; i < 196; ++i){
         mapTiles[i].visited = false;
@@ -79,68 +80,110 @@ void dijkstra(){
 
     mapTiles[start].distance = 0;
 
-    for (uint8_t count = 0; count < 196 - 1; count++) {
-        uint8_t u = minDistance();
-
-        mapTiles[u].visited = true;
-
-        uint8_t adjacent[4] = {UINT8_MAX, UINT8_MAX, UINT8_MAX,UINT8_MAX};
-        exploreSurroundings(u, &adjacent[0]);
-
+    for (uint8_t i = 0; i < 196 - 1; ++i){
         uint8_t x, y;
-        for(uint8_t v = 0; v < 4; v++){
-            if(adjacent[v] != UINT8_MAX){
-                conv1Dto2D(adjacent[v], &x, &y);
+        uint8_t minIndex = minDistance();
+        uint8_t adjacent[4] = {UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX};
+
+        mapTiles[minIndex].visited = true;
+        exploreSurroundings(minIndex, adjacent);
+
+        for(uint8_t j = 0; j < 4; ++j){
+            if(adjacent[j] != UINT8_MAX){
+                conv1Dto2D(adjacent[j], &x, &y);
+
+                /*
                 if (mapStringMatrix[x][y] == ' '
-                    && mapTiles[u].distance != UINT8_MAX
-                    && !mapTiles[v].visited
-                    && (mapTiles[u].distance + 1) < mapTiles[adjacent[v]].distance){
-                    mapTiles[adjacent[v]].distance = mapTiles[u].distance + 1;
-                    mapTiles[adjacent[v]].prev = u;
+                    && mapTiles[minIndex].distance != UINT8_MAX
+                    && !mapTiles[j].visited
+                    && (mapTiles[minIndex].distance + 1) < mapTiles[adjacent[j]].distance){
+                    mapTiles[adjacent[j]].distance = mapTiles[minIndex].distance + 1;
+                    mapTiles[adjacent[j]].prev = minIndex;
                 }
+                */
+
+                if(mapStringMatrix[x][y] != ' ')
+                    continue;
+                if(mapTiles[minIndex].distance == UINT8_MAX)
+                    continue;
+                if(mapTiles[j].visited)
+                    continue;
+                if((mapTiles[minIndex].distance + 1) >= mapTiles[adjacent[j]].distance)
+                    continue;
+
+                mapTiles[adjacent[j]].distance = mapTiles[minIndex].distance + 1;
+                mapTiles[adjacent[j]].prev = minIndex;
             }
         }
     }
 }
 
 void findClosestTile(uint8_t tableIndex, uint8_t* lowestTableIndex, uint8_t* lowestDistance){
-    uint8_t currentMinDistance = UINT8_MAX, index, x, y;
+    uint8_t currentMinDistance = UINT8_MAX;
+    uint8_t x, y;
+
     conv1Dto2D(tableIndex, &x, &y);
+
     for (uint16_t row = (x - 1); row <= (x + 1); ++row) {
         for (uint16_t col = (y - 1); col <= (y + 1); ++col) {
+            /*
             if(!(x < 0 || y < 0 || x >= 14 || y >= 14) && mapTiles[conv2Dto1D(row, col)].distance < currentMinDistance){
                 index = conv2Dto1D(row, col);
                 currentMinDistance = mapTiles[index].distance;
                 *lowestTableIndex = index;
             }
+            */
+
+            if((x < 0 || y < 0 || x >= 14 || y >= 14))
+                continue;
+            if(mapTiles[conv2Dto1D(row, col)].distance >= currentMinDistance)
+                continue;
+
+            *lowestTableIndex = conv2Dto1D(row, col);
+            currentMinDistance = mapTiles[conv2Dto1D(row, col)].distance;
         }
     }
+
     *lowestDistance = currentMinDistance;
 }
-
 void findClosestTableTile(table* t, uint8_t index){
     uint8_t minDist1, minDist2, index1, index2;
+
     findClosestTile(t->index1, &index1, &minDist1);
     findClosestTile(t->index2, &index2, &minDist2);
+
     closestDestTiles[index] = (minDist1 < minDist2) ? index1 : index2;
 }
 
 void findRoute(uint8_t target){
     // create Route
-    uint8_t i = (mapTiles[target].distance - 1), route[i + 1], size = i + 1, currentTile = target, dist = mapTiles[target].distance;
+    uint8_t dist = mapTiles[target].distance;
+    uint8_t route[dist];
+    uint8_t arrRouteIndex = dist - 1;
+    //uint8_t length = dist;
+    uint8_t currentTile = target;
+
+    uint8_t currentIndex = start;
+    uint8_t forwardCount = 0;
+
+
     while(currentTile != start){
-        route[i] = currentTile;
+        route[arrRouteIndex] = currentTile;
         currentTile = mapTiles[currentTile].prev;
-        i--;
+        --arrRouteIndex;
     }
-    printRouteToMap(&route, size, 0, 1);
+
+    printRouteToMap(&route, dist, 0, 1);
     makeSound();
 
     // drive to target
-    uint8_t currentIndex = start, forwardCount = 0;
-    for (uint8_t j = 0; j <= (dist - 1); ++j) {
-        direction to = headsTo(currentIndex, route[j]);
-        int8_t turn = turnDegrees(to);
+    //uint8_t currentIndex = start
+    //uint8_t forwardCount = 0;
+
+    for (uint8_t i = 0; i <= (dist - 1); ++i) {
+        direction turnsTo = headsTo(currentIndex, route[i]);
+        int8_t turn = turnDegrees(turnsTo);
+
         switch (turn) {
             case 0:
                 forwardCount++;
@@ -150,23 +193,23 @@ void findRoute(uint8_t target){
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnRight();
-                setRoboDir(to);
-                printRouteToMap(&route, size, j, 1);
+                setRoboDir(turnsTo);
+                printRouteToMap(&route, dist, i, 1);
                 break;
             case -1:
                 if(forwardCount)
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnLeft();
-                setRoboDir(to);
-                printRouteToMap(&route, size, j, 1);
+                setRoboDir(turnsTo);
+                printRouteToMap(&route, dist, i, 1);
                 break;
         }
-        currentIndex = route[j];
+        currentIndex = route[i];
     }
     if(forwardCount){
         driveTile(forwardCount);
-        printRouteToMap(&route, size, size, 1);
+        printRouteToMap(&route, dist, dist, 1);
     }
 
     makeSound();

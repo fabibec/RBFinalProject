@@ -2,6 +2,9 @@
 #define MAPDISPLAY_H_INCLUDED
 
 #include "nnxt.h"
+#include "types.h"
+
+extern direction roboDirection;
 
 typedef enum{
     _start,
@@ -12,8 +15,15 @@ typedef enum{
 
 
 void drawBlock(uint8_t x, uint8_t y, uint16_t color);
-
-void drawSymbol(uint8_t x, uint8_t y, bitSymbol s, uint16_t color);
-void drawS(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolStart(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolOne(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolTwo(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolThree(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolUp(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolDown(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolLeft(uint8_t x, uint8_t y, uint16_t color);
+void drawSymbolRight(uint8_t x, uint8_t y, uint16_t color);
+void printMap();
+void printRouteToMap(uint8_t* route, uint8_t size, uint8_t currentStep, uint8_t toDesk);
 
 #endif /* MAPDISPLAY_H_INCLUDED */

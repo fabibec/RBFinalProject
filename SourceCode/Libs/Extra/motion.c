@@ -28,22 +28,23 @@ void driveTile(uint8_t tiles){
     // only works for Port_A !!!
     Motor_Tacho_GetCounter(RIGHT_MOTOR, &prev_deg);
 
-    sprintf(msg, "%d", distance);
+    //sprintf(msg, "%d", distance);
 
     Motor_Drive(LEFT_MOTOR, Motor_dir_forward, 51);
     Motor_Drive(RIGHT_MOTOR, Motor_dir_forward, 50);
     while(distance > 2000) {
-        sprintf(msg, "%d", distance);
-        printText(0, msg);
+        //sprintf(msg, "%d", distance);
+        //printText(0, msg);
 
         Delay(200);
         Motor_Tacho_GetCounter(RIGHT_MOTOR, &deg);
 
-
+        /*
         sprintf(msg1, "%d", (int)deg);
         sprintf(msg2, "%d", (int)prev_deg);
         printText(1, msg1);
         printText(2, msg2);
+        */
 
         distance -= ((getAbsDiff(deg, prev_deg)*2/360.0) * CIRCUMFERENCE * 1000);
         prev_deg = deg;
@@ -79,10 +80,12 @@ void turn(uint8_t dir) {
     Motor_Drive(LEFT_MOTOR, ((dir) ? Motor_dir_backward: Motor_dir_forward), motorL);
     Motor_Drive(RIGHT_MOTOR, ((dir) ? Motor_dir_forward: Motor_dir_backward), motorR);
     while (distanceL > 0 || distanceR > 0) {
+        /*
         sprintf(msg, "%d", (int)distanceL);
         sprintf(msg1, "%d", (int)distanceR);
         printText(1, msg);
         printText(2, msg1);
+        */
 
         if (distanceL <= 0) {
             Motor_Stop(LEFT_MOTOR, Motor_stop_break);
@@ -106,14 +109,14 @@ void turn(uint8_t dir) {
             if((diffL + offSet) < diffR)
             {
                 ++motorL;
-                sprintf(msg2, "%d changed left", (int)motorL);
-                printText(4, msg2);
+                //sprintf(msg2, "%d changed left", (int)motorL);
+                //printText(4, msg2);
             }
             else if(diffL > (diffR + offSet))
             {
                 ++motorR;
-                sprintf(msg3, "%d changed right", (int)motorR);
-                printText(5, msg3);
+                //sprintf(msg3, "%d changed right", (int)motorR);
+                //printText(5, msg3);
             }
         }
 

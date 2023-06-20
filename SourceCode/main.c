@@ -36,7 +36,7 @@ void convertMapStringToMatrix(){
 
 /* Tracking start and possible end positions */
 
-uint8_t destinations[] = {2, 3};
+uint8_t destinations[] = {3, 3};
 // start index is stored as 1D index
 uint8_t start;
 // holds the tables positions at index [table name (either 1,2 or 3) - 1]
@@ -122,12 +122,13 @@ void findClosestTableTile(table* t, uint8_t index){
 
 void findRoute(uint8_t target){
     // create Route
-    uint8_t i = (mapTiles[target].distance - 1), route[i + 1], currentTile = target, dist = mapTiles[target].distance;
+    uint8_t i = (mapTiles[target].distance - 1), route[i + 1], size = i + 1, currentTile = target, dist = mapTiles[target].distance;
     while(currentTile != start){
         route[i] = currentTile;
         currentTile = mapTiles[currentTile].prev;
         i--;
     }
+    printRouteToMap(&route, size, 0, 1);
     makeSound();
 
     // drive to target
@@ -145,6 +146,7 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnRight();
                 setRoboDir(to);
+                printRouteToMap(&route, size, j, 1);
                 break;
             case -1:
                 if(forwardCount)
@@ -152,12 +154,14 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnLeft();
                 setRoboDir(to);
+                printRouteToMap(&route, size, j, 1);
                 break;
         }
         currentIndex = route[j];
     }
     if(forwardCount){
         driveTile(forwardCount);
+        printRouteToMap(&route, size, size, 1);
     }
 
     makeSound();
@@ -172,6 +176,8 @@ void findRoute(uint8_t target){
         routeBack[k+1] = route[k];
     }
 
+    printRouteToMap(&routeBack, dist + 1, 0, 0);
+
     for (uint8_t k = (dist - 1); k < INT8_MAX; --k) {
         direction to = headsTo(currentIndex, routeBack[k]);
         int8_t turn = turnDegrees(to);
@@ -185,6 +191,7 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnRight();
                 setRoboDir(to);
+                printRouteToMap(&routeBack, dist + 1, k, 0);
                 break;
             case -1:
                 if(forwardCount)
@@ -192,6 +199,7 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnLeft();
                 setRoboDir(to);
+                printRouteToMap(&routeBack, dist + 1, k, 0);
                 break;
         }
         currentIndex = routeBack[k];
@@ -225,32 +233,17 @@ void findRoute(uint8_t target){
 /* Dijkstra Pathfinding End */
 
 int main(){
-    convertMapStringToMatrix();
-    findStartAndTablePosition();
-    while(1){
-        for(int i = 0; i < 14; ++i){
-            for(int j = 0; j < 14; ++j){
-                if(mapStringMatrix[i][j] == '#')
-                    drawBlock(i, j, LCD_COLOR_BLACK);
-                else if(mapStringMatrix[i][j] == 'S')
-                    //drawS(i, j, LCD_COLOR_GREEN);
-                    drawSymbol(i, j, _start, LCD_COLOR_GREEN);
-
-            }
-        }
-    }
-    /*
     initMotorPorts();
     Delay(1000);
     convertMapStringToMatrix();
     findStartAndTablePosition();
+    printMap();
     dijkstra();
     findClosestTableTile(&tables[destinations[0] - 1], 0);
     findClosestTableTile(&tables[destinations[1] - 1], 1);
     findRoute(closestDestTiles[0]);
     findRoute(closestDestTiles[1]);
     makeSound();
-    */
     /*
     initMotorPorts();
     turnLeft();
@@ -260,6 +253,17 @@ int main(){
     turnAround();
     makeSound();
     Delay(500);*/
+    /*
+    drawSymbolStart(0, 0, LCD_COLOR_BLUE);
+    //drawSymbolOne(0, 1, 0x4BC4);
+    drawSymbolOne(0, 1, 0xFB0A);
+    drawSymbolTwo(0, 2, 0x75C8);
+    drawSymbolThree(0, 3, LCD_COLOR_BLUE);
+    drawSymbolUp(1, 0, LCD_COLOR_BLUE);
+    drawSymbolDown(1, 1, LCD_COLOR_BLUE);
+    drawSymbolLeft(1, 2, LCD_COLOR_BLUE);
+    drawSymbolRigth(1, 3, LCD_COLOR_BLUE);
+*/
 
     return 0;
 }

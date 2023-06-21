@@ -174,7 +174,7 @@ void findRoute(uint8_t target, char (*mapStringMatrix)[14]){
         --arrRouteIndex;
     }
 
-    printRouteToMap(&route, dist, 0, 1, mapStringMatrix);
+    printRouteToMap(route, dist, 0, 1, mapStringMatrix);
     makeSound();
 
     // drive to target
@@ -195,7 +195,7 @@ void findRoute(uint8_t target, char (*mapStringMatrix)[14]){
                 forwardCount = 1;
                 turnRight();
                 setRoboDir(turnsTo);
-                printRouteToMap(&route, dist, i, 1, mapStringMatrix);
+                printRouteToMap(route, dist, i, 1, mapStringMatrix);
                 break;
             case -1:
                 if(forwardCount)
@@ -203,14 +203,14 @@ void findRoute(uint8_t target, char (*mapStringMatrix)[14]){
                 forwardCount = 1;
                 turnLeft();
                 setRoboDir(turnsTo);
-                printRouteToMap(&route, dist, i, 1, mapStringMatrix);
+                printRouteToMap(route, dist, i, 1, mapStringMatrix);
                 break;
         }
         currentIndex = route[i];
     }
     if(forwardCount){
         driveTile(forwardCount);
-        printRouteToMap(&route, dist, dist, 1, mapStringMatrix);
+        printRouteToMap(route, dist, dist, 1, mapStringMatrix);
     }
 
     makeSound();
@@ -225,7 +225,7 @@ void findRoute(uint8_t target, char (*mapStringMatrix)[14]){
         routeBack[k+1] = route[k];
     }
 
-    printRouteToMap(&routeBack, dist + 1, 0, 0, mapStringMatrix);
+    printRouteToMap(routeBack, dist + 1, 0, 0, mapStringMatrix);
 
     for (uint8_t k = (dist - 1); k < INT8_MAX; --k) {
         direction to = headsTo(currentIndex, routeBack[k]);
@@ -240,7 +240,7 @@ void findRoute(uint8_t target, char (*mapStringMatrix)[14]){
                 forwardCount = 1;
                 turnRight();
                 setRoboDir(to);
-                printRouteToMap(&routeBack, dist + 1, k, 0, mapStringMatrix);
+                printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix);
                 break;
             case -1:
                 if(forwardCount)
@@ -248,7 +248,7 @@ void findRoute(uint8_t target, char (*mapStringMatrix)[14]){
                 forwardCount = 1;
                 turnLeft();
                 setRoboDir(to);
-                printRouteToMap(&routeBack, dist + 1, k, 0, mapStringMatrix);
+                printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix);
                 break;
         }
         currentIndex = routeBack[k];

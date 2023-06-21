@@ -5,7 +5,7 @@
 
 // get rid of extern global var
 //extern table tables[];
-extern tile mapTiles[];
+//extern tile mapTiles[];
 
 
 /* use 1D as 2D and vise versa*/
@@ -29,7 +29,7 @@ void fillTablePosition(table *, uint8_t tableIndex, uint8_t i, uint8_t j);
 
 
 /* Dijkstra */
-uint8_t minDistance();
+uint8_t minDistance(tile *);
 void exploreSurroundings(uint8_t index, uint8_t* adjacent);
 
 

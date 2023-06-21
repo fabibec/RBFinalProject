@@ -59,7 +59,7 @@ bool belowExists(uint8_t index){
 
 
 // utility function for dijkstra - finds the next vertex that needs to be processed
-uint8_t minDistance(){
+uint8_t minDistance(tile * mapTiles){
     uint8_t minimal = UINT8_MAX;
     uint8_t minIndex;
 

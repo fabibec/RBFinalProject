@@ -58,24 +58,23 @@ void findStartAndTablePosition(char (*mapStringMatrix)[14], uint8_t * start, tab
 
 /* Dijkstra Pathfinding */
 // TODO remove global var
-tile mapTiles[196];
 uint8_t closestDestTiles[2];
 
-void initMapTiles(){
+void initMapTiles(tile * mapTiles){
     for(uint8_t i = 0; i < 196; ++i){
         mapTiles[i].visited = false;
         mapTiles[i].distance = UINT8_MAX;
         mapTiles[i].prev = i;
     }
 }
-void dijkstra(char (*mapStringMatrix)[14], const uint8_t start){
-    initMapTiles();
+void dijkstra(char (*mapStringMatrix)[14], const uint8_t start, tile * mapTiles){
+    initMapTiles(mapTiles);
 
     mapTiles[start].distance = 0;
 
     for (uint8_t i = 0; i < 196 - 1; ++i){
         uint8_t x, y;
-        uint8_t minIndex = minDistance();
+        uint8_t minIndex = minDistance(mapTiles);
         uint8_t adjacent[4] = {UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX};
 
         mapTiles[minIndex].visited = true;
@@ -111,7 +110,7 @@ void dijkstra(char (*mapStringMatrix)[14], const uint8_t start){
     }
 }
 
-void findClosestTile(uint8_t tableIndex, uint8_t* lowestTableIndex, uint8_t* lowestDistance){
+void findClosestTile(uint8_t tableIndex, uint8_t* lowestTableIndex, uint8_t* lowestDistance, const tile * mapTiles){
     uint8_t currentMinDistance = UINT8_MAX;
     uint8_t x, y;
 
@@ -139,16 +138,16 @@ void findClosestTile(uint8_t tableIndex, uint8_t* lowestTableIndex, uint8_t* low
 
     *lowestDistance = currentMinDistance;
 }
-void findClosestTableTile(table* t, uint8_t index){
+void findClosestTableTile(table* t, uint8_t index, const tile * mapTiles){
     uint8_t minDist1, minDist2, index1, index2;
 
-    findClosestTile(t->index1, &index1, &minDist1);
-    findClosestTile(t->index2, &index2, &minDist2);
+    findClosestTile(t->index1, &index1, &minDist1, mapTiles);
+    findClosestTile(t->index2, &index2, &minDist2, mapTiles);
 
     closestDestTiles[index] = (minDist1 < minDist2) ? index1 : index2;
 }
 
-void findRoute(uint8_t target, char (*mapStringMatrix)[14], direction * roboDirection, const uint8_t start){
+void findRoute(uint8_t target, char (*mapStringMatrix)[14], direction * roboDirection, const uint8_t start, const tile * mapTiles){
     // TODO finish stuff here
     // create Route
     uint8_t dist = mapTiles[target].distance;
@@ -289,17 +288,19 @@ int main(){
     uint8_t start;
     uint8_t destinations[] = {3, 3};
     table tables[3];
+    tile mapTiles[196];
+
 
     initMotorPorts();
     //Delay(1000);
     convertMapStringToMatrix(mapStringMatrix);
     findStartAndTablePosition(mapStringMatrix, &start, tables);
     printMap(mapStringMatrix);
-    dijkstra(mapStringMatrix, start);
-    findClosestTableTile(&tables[destinations[0] - 1], 0);
-    findClosestTableTile(&tables[destinations[1] - 1], 1);
-    findRoute(closestDestTiles[0], mapStringMatrix, &roboDirection, start);
-    findRoute(closestDestTiles[1], mapStringMatrix, &roboDirection, start);
+    dijkstra(mapStringMatrix, start, mapTiles);
+    findClosestTableTile(&tables[destinations[0] - 1], 0, mapTiles);
+    findClosestTableTile(&tables[destinations[1] - 1], 1, mapTiles);
+    findRoute(closestDestTiles[0], mapStringMatrix, &roboDirection, start, mapTiles);
+    findRoute(closestDestTiles[1], mapStringMatrix, &roboDirection, start, mapTiles);
     makeSound();
     return 0;
 }

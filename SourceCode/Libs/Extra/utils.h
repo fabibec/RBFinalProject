@@ -4,7 +4,7 @@
 #include "types.h"
 
 // get rid of extern global var
-extern table tables[];
+//extern table tables[];
 extern tile mapTiles[];
 
 
@@ -24,8 +24,8 @@ bool isStartPosition(char c);
 bool isTablePosition(char c);
 
 
-void initTablesArray();
-void fillTablePosition(uint8_t tableIndex, uint8_t i, uint8_t j);
+void initTablesArray(table *);
+void fillTablePosition(table *, uint8_t tableIndex, uint8_t i, uint8_t j);
 
 
 /* Dijkstra */

@@ -6,7 +6,6 @@
 
 
 /* Matrix conversion */
-
 void convertMapStringToMatrix(char (*mapStringMatrix)[14]){
     const char* mapString = "\
 ##############\
@@ -34,18 +33,11 @@ void convertMapStringToMatrix(char (*mapStringMatrix)[14]){
 
 
 /* Tracking start and possible end positions */
-// TODO remove global var
-uint8_t destinations[] = {3, 3};
-// start index is stored as 1D index
-// TODO remove global var
-//uint8_t start;
-// holds the tables positions at index [table name (either 1,2 or 3) - 1]
-// TODO remove global var
-table tables[3];
+//table tables[3];
 
-void findStartAndTablePosition(char (*mapStringMatrix)[14], uint8_t * start){
+void findStartAndTablePosition(char (*mapStringMatrix)[14], uint8_t * start, table * tables){
 
-    initTablesArray();
+    initTablesArray(tables);
 
     char currentChar;
     uint8_t tableIndex;
@@ -56,7 +48,7 @@ void findStartAndTablePosition(char (*mapStringMatrix)[14], uint8_t * start){
                 *start = conv2Dto1D(i,j);
             } else if (isTablePosition(currentChar)){
                 tableIndex = (currentChar - '1');
-                fillTablePosition(tableIndex, i, j);
+                fillTablePosition(tables, tableIndex, i, j);
             }
         }
     }
@@ -65,6 +57,7 @@ void findStartAndTablePosition(char (*mapStringMatrix)[14], uint8_t * start){
 
 
 /* Dijkstra Pathfinding */
+// TODO remove global var
 tile mapTiles[196];
 uint8_t closestDestTiles[2];
 
@@ -294,11 +287,13 @@ int main(){
     char mapStringMatrix[14][14];
     direction roboDirection = S;
     uint8_t start;
+    uint8_t destinations[] = {3, 3};
+    table tables[3];
 
     initMotorPorts();
     //Delay(1000);
     convertMapStringToMatrix(mapStringMatrix);
-    findStartAndTablePosition(mapStringMatrix, &start);
+    findStartAndTablePosition(mapStringMatrix, &start, tables);
     printMap(mapStringMatrix);
     dijkstra(mapStringMatrix, start);
     findClosestTableTile(&tables[destinations[0] - 1], 0);

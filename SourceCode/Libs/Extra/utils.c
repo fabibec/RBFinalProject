@@ -27,7 +27,7 @@ bool isTablePosition(char c){
 bool isStartPosition(char c){
     return c == 'S';
 }
-void initTablesArray(){
+void initTablesArray(table * tables){
     for (int i = 0; i < 3; ++i) {
         tables[i].index1 = UINT8_MAX;
         tables[i].index2 = UINT8_MAX;
@@ -35,7 +35,7 @@ void initTablesArray(){
 }
 
 
-void fillTablePosition(uint8_t tableIndex, uint8_t posX, uint8_t posY){
+void fillTablePosition(table * tables, uint8_t tableIndex, uint8_t posX, uint8_t posY){
     if(tables[tableIndex].index1 == UINT8_MAX){
         tables[tableIndex].index1 = conv2Dto1D(posX, posY);
     } else {

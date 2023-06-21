@@ -67,6 +67,8 @@ void initMapTiles(tile * mapTiles){
         mapTiles[i].prev = i;
     }
 }
+
+
 void dijkstra(char (*mapStringMatrix)[14], const uint8_t start, tile * mapTiles){
     initMapTiles(mapTiles);
 
@@ -83,17 +85,6 @@ void dijkstra(char (*mapStringMatrix)[14], const uint8_t start, tile * mapTiles)
         for(uint8_t j = 0; j < 4; ++j){
             if(adjacent[j] != UINT8_MAX){
                 conv1Dto2D(adjacent[j], &x, &y);
-
-                /*
-                if (mapStringMatrix[x][y] == ' '
-                    && mapTiles[minIndex].distance != UINT8_MAX
-                    && !mapTiles[j].visited
-                    && (mapTiles[minIndex].distance + 1) < mapTiles[adjacent[j]].distance){
-                    mapTiles[adjacent[j]].distance = mapTiles[minIndex].distance + 1;
-                    mapTiles[adjacent[j]].prev = minIndex;
-                }
-                */
-
                 if(mapStringMatrix[x][y] != ' ')
                     continue;
                 if(mapTiles[minIndex].distance == UINT8_MAX)
@@ -102,7 +93,6 @@ void dijkstra(char (*mapStringMatrix)[14], const uint8_t start, tile * mapTiles)
                     continue;
                 if((mapTiles[minIndex].distance + 1) >= mapTiles[adjacent[j]].distance)
                     continue;
-
                 mapTiles[adjacent[j]].distance = mapTiles[minIndex].distance + 1;
                 mapTiles[adjacent[j]].prev = minIndex;
             }
@@ -118,19 +108,10 @@ void findClosestTile(uint8_t tableIndex, uint8_t* lowestTableIndex, uint8_t* low
 
     for (uint16_t row = (x - 1); row <= (x + 1); ++row) {
         for (uint16_t col = (y - 1); col <= (y + 1); ++col) {
-            /*
-            if(!(x < 0 || y < 0 || x >= 14 || y >= 14) && mapTiles[conv2Dto1D(row, col)].distance < currentMinDistance){
-                index = conv2Dto1D(row, col);
-                currentMinDistance = mapTiles[index].distance;
-                *lowestTableIndex = index;
-            }
-            */
-
             if((x < 0 || y < 0 || x >= 14 || y >= 14))
                 continue;
             if(mapTiles[conv2Dto1D(row, col)].distance >= currentMinDistance)
                 continue;
-
             *lowestTableIndex = conv2Dto1D(row, col);
             currentMinDistance = mapTiles[conv2Dto1D(row, col)].distance;
         }
@@ -153,7 +134,6 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
     uint8_t dist = mapTiles[target].distance;
     uint8_t route[dist];
     uint8_t arrRouteIndex = dist - 1;
-    //uint8_t length = dist;
     uint8_t currentTile = target;
 
     uint8_t currentIndex = start;
@@ -166,12 +146,8 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
         --arrRouteIndex;
     }
 
-    printRouteToMap(route, dist, 0, 1, mapStringMatrix, *roboDirection);
+    printRoute(route, dist);
     makeSound();
-
-    // drive to target
-    //uint8_t currentIndex = start
-    //uint8_t forwardCount = 0;
 
     for (uint8_t i = 0; i <= (dist - 1); ++i) {
         direction turnsTo = headsTo(currentIndex, route[i]);
@@ -186,30 +162,27 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnRight();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(route, dist, i, 1, mapStringMatrix, *roboDirection);
+                updateRoute(route, dist, i, roboDirection);
                 break;
             case -1:
                 if(forwardCount)
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnLeft();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(route, dist, i, 1, mapStringMatrix, *roboDirection);
+                updateRoute(route, dist, i, roboDirection);
                 break;
         }
         currentIndex = route[i];
     }
     if(forwardCount){
         driveTile(forwardCount);
-        printRouteToMap(route, dist, dist, 1, mapStringMatrix, *roboDirection);
+        updateRoute(route, dist, dist, roboDirection);
     }
 
     makeSound();
     turnAround();
-    //setRoboDir(turnDirections(getRoboDir(), 2, true));
     *roboDirection = turnDirections(*roboDirection, 2, true);
 
     forwardCount = 0;
@@ -221,7 +194,7 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
         routeBack[k+1] = route[k];
     }
 
-    printRouteToMap(routeBack, dist + 1, 0, 0, mapStringMatrix, *roboDirection);
+    printRoute(routeBack + 1, dist);
 
     for (uint8_t k = (dist - 1); k < INT8_MAX; --k) {
         direction turnsTo = headsTo(currentIndex, routeBack[k]);
@@ -235,23 +208,22 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnRight();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix, *roboDirection);
+                //printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix, *roboDirection);
                 break;
             case -1:
                 if(forwardCount)
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnLeft();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix, *roboDirection);
+                //printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix, *roboDirection);
                 break;
         }
         currentIndex = routeBack[k];
     }
-    // turn the robot so it's facing downwards
+
+    // turn the robot so it's facing south again
     switch (turnDegrees(S, roboDirection)) {
         case 0:
             forwardCount++;
@@ -260,21 +232,18 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
             if(forwardCount)
                 driveTile(forwardCount);
             turnRight();
-            //setRoboDir(S);
             *roboDirection = S;
             break;
         case -1:
             if(forwardCount)
                 driveTile(forwardCount);
             turnLeft();
-            //setRoboDir(S);
             *roboDirection = S;
             break;
         case 2:
             if(forwardCount)
                 driveTile(forwardCount);
             turnAround();
-            //setRoboDir(S);
             *roboDirection = S;
             break;
     }

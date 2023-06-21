@@ -58,7 +58,7 @@ void findStartAndTablePosition(char (*mapStringMatrix)[14], uint8_t * start, tab
 
 /* Dijkstra Pathfinding */
 // TODO remove global var
-uint8_t closestDestTiles[2];
+//uint8_t closestDestTiles[2];
 
 void initMapTiles(tile * mapTiles){
     for(uint8_t i = 0; i < 196; ++i){
@@ -138,7 +138,7 @@ void findClosestTile(uint8_t tableIndex, uint8_t* lowestTableIndex, uint8_t* low
 
     *lowestDistance = currentMinDistance;
 }
-void findClosestTableTile(table* t, uint8_t index, const tile * mapTiles){
+void findClosestTableTile(table* t, uint8_t index, const tile * mapTiles, uint8_t * closestDestTiles){
     uint8_t minDist1, minDist2, index1, index2;
 
     findClosestTile(t->index1, &index1, &minDist1, mapTiles);
@@ -147,7 +147,7 @@ void findClosestTableTile(table* t, uint8_t index, const tile * mapTiles){
     closestDestTiles[index] = (minDist1 < minDist2) ? index1 : index2;
 }
 
-void findRoute(uint8_t target, char (*mapStringMatrix)[14], direction * roboDirection, const uint8_t start, const tile * mapTiles){
+void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * roboDirection, const uint8_t start, const tile * mapTiles){
     // TODO finish stuff here
     // create Route
     uint8_t dist = mapTiles[target].distance;
@@ -289,6 +289,7 @@ int main(){
     uint8_t destinations[] = {3, 3};
     table tables[3];
     tile mapTiles[196];
+    uint8_t closestDestTiles[2];
 
 
     initMotorPorts();
@@ -297,8 +298,8 @@ int main(){
     findStartAndTablePosition(mapStringMatrix, &start, tables);
     printMap(mapStringMatrix);
     dijkstra(mapStringMatrix, start, mapTiles);
-    findClosestTableTile(&tables[destinations[0] - 1], 0, mapTiles);
-    findClosestTableTile(&tables[destinations[1] - 1], 1, mapTiles);
+    findClosestTableTile(&tables[destinations[0] - 1], 0, mapTiles, closestDestTiles);
+    findClosestTableTile(&tables[destinations[1] - 1], 1, mapTiles, closestDestTiles);
     findRoute(closestDestTiles[0], mapStringMatrix, &roboDirection, start, mapTiles);
     findRoute(closestDestTiles[1], mapStringMatrix, &roboDirection, start, mapTiles);
     makeSound();

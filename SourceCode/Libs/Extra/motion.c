@@ -1,8 +1,5 @@
 #include "motion.h"
 
-#include "types.h"
-#include "nnxt.h"
-
 
 #define RIGHT_MOTOR Port_A
 #define LEFT_MOTOR Port_C
@@ -16,6 +13,7 @@ void initMotorPorts(){
     OnBoardPeriph_Beep_Init();
 }
 
+// TODO regler for driveTile
 void driveTile(uint8_t tiles){
     // distance which should be driven in
     //char msg[20];

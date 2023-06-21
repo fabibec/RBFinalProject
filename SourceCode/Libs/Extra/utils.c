@@ -1,50 +1,49 @@
 #include "utils.h"
 #include "motion.h"
-#include <stdint.h>
 
 
-void clearLine(uint8_t line){
+void clearLine(const uint8_t line){
     NNXT_LCD_ClearStringLine((uint16_t)line);
 }
-void printText(uint8_t line, char *ptr){
+void printText(const uint8_t line, char *ptr){
     clearLine(line);
     NNXT_LCD_DisplayStringAtLine(line, ptr);
 }
 
 
-uint8_t conv2Dto1D(uint8_t row, uint8_t col){
+uint8_t conv2Dto1D(const uint8_t row, const uint8_t col){
     return row * 14 + col;
 }
-void conv1Dto2D(uint8_t index, uint8_t* row, uint8_t* col){
+void conv1Dto2D(const uint8_t index, uint8_t* row, uint8_t* col){
     *row = index / 14;
     *col = index % 14;
 }
 
 
-bool isTablePosition(char c){
+/*bool isTablePosition(char c){
     return (c == '1' || c == '2' || c == '3');
 }
 bool isStartPosition(char c){
     return c == 'S';
-}
-void initTablesArray(table * tables){
+}*/
+/*void initTablesArray(table * tables){
     for (int i = 0; i < 3; ++i) {
         tables[i].index1 = UINT8_MAX;
         tables[i].index2 = UINT8_MAX;
     }
-}
+}*/
 
 
-void fillTablePosition(table * tables, uint8_t tableIndex, uint8_t posX, uint8_t posY){
+/*void fillTablePosition(table * tables, uint8_t tableIndex, uint8_t posX, uint8_t posY){
     if(tables[tableIndex].index1 == UINT8_MAX){
         tables[tableIndex].index1 = conv2Dto1D(posX, posY);
     } else {
         tables[tableIndex].index2 = conv2Dto1D(posX, posY);
     }
-}
+}*/
 
 
-bool leftExists(uint8_t index){
+/*bool leftExists(uint8_t index){
     return index != 0 || index % 14 != 0;
 }
 bool rightExists(uint8_t index){
@@ -55,11 +54,11 @@ bool aboveExists(uint8_t index){
 }
 bool belowExists(uint8_t index){
     return index <= 196 - 1 - 14;
-}
+}*/
 
 
 // utility function for dijkstra - finds the next vertex that needs to be processed
-uint8_t minDistance(tile * mapTiles){
+/*uint8_t minDistance(tile * mapTiles){
     uint8_t minimal = UINT8_MAX;
     uint8_t minIndex;
 
@@ -71,8 +70,8 @@ uint8_t minDistance(tile * mapTiles){
     }
 
     return minIndex;
-}
-void exploreSurroundings(uint8_t index, uint8_t* adjacent){
+}*/
+/*void exploreSurroundings(uint8_t index, uint8_t* adjacent){
     if(aboveExists(index)){
         adjacent[0] = index - 14;
     }
@@ -85,20 +84,20 @@ void exploreSurroundings(uint8_t index, uint8_t* adjacent){
     if(rightExists(index)){
         adjacent[3] = index + 1;
     }
-}
+}*/
 
 
-bool isCurve(uint8_t index1, uint8_t index2){
+/*bool isCurve(uint8_t index1, uint8_t index2){
     uint8_t x1, x2, y1, y2;
     conv1Dto2D(index1, &x1, &y1);
     conv1Dto2D(index2, &x2, &y2);
     return (x1 != x2 && y1 != y2);
-}
+}*/
 
-direction headsTo(uint8_t currentIndex, uint8_t nextIndex){
+direction headsTo(const uint8_t currentIndex, const uint8_t nextIndex){
     uint8_t x1, x2, y1, y2;
 
-    // TODO change parameter from y,x to x,y
+    // TODO change parameter from y,x to x,y ?
     conv1Dto2D(currentIndex, &y1, &x1);
     conv1Dto2D(nextIndex, &y2, &x2);
 
@@ -112,29 +111,26 @@ direction headsTo(uint8_t currentIndex, uint8_t nextIndex){
         return S;
     }
 }
-
-bool enumUnderflow(direction d){
+bool enumUnderflow(const direction d){
     return ((uint8_t) d - 1) < 0;
 }
-
-direction turnDirections(const direction d, int8_t steps,bool clockwise){
-    direction new = d;
+direction turnDirections(const direction d, const int8_t steps, const bool clockwise){
+    direction newDir = d;
     for (int8_t i = 0; i < steps; ++i) {
         if(clockwise){
-            new = ((new + 1) % 4);
+            newDir = ((newDir + 1) % 4);
         } else{
-            if(!enumUnderflow(new))
-                new--;
+            if(!enumUnderflow(newDir))
+                newDir--;
             else
-                new = 3;
+                newDir = 3;
         }
     }
-    return new;
+    return newDir;
 }
-
 // -1 left Turn; 0 no turn; 1 right Turn; 2 180 deg
-int8_t turnDegrees(direction turnsTo, direction * roboDirection){
-    direction currentDirection = *roboDirection;
+int8_t turnDegrees(const direction turnsTo, const direction roboDirection){
+    direction currentDirection = roboDirection;
 
     if(((currentDirection + 1) % 4) == turnsTo)
         return 1;

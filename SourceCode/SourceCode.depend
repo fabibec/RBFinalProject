@@ -38,12 +38,11 @@
 	"st7735.h"
 	"fonts.h"
 
-1687364850 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\mapdisplay.c
+1687390154 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\mapdisplay.c
 	"mapDisplay.h"
 	"utils.h"
 
-1687364875 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\mapdisplay.h
-	"nnxt.h"
+1687390137 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\mapdisplay.h
 	"types.h"
 
 1687364351 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\nnxt\inc\nnxt.h
@@ -319,25 +318,23 @@
 	"nnxt_config.h"
 	"nnxt_os_glue.h"
 
-1687364361 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\types.h
-	"stdbool.h"
+1687387886 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\types.h
+	<stdbool.h>
+	<stdint.h>
 	"nnxt.h"
 
-1687364361 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\utils.h
+1687390194 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\utils.h
 	"types.h"
 
-1687364361 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\motion.c
+1687388215 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\motion.c
 	"motion.h"
-	"types.h"
-	"nnxt.h"
 
-1687364361 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\motion.h
+1687390740 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\motion.h
 	"types.h"
 
-1687364361 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\utils.c
+1687390338 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\utils.c
 	"utils.h"
 	"motion.h"
-	<stdint.h>
 
 1687364351 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\freertos\freertos_glue.c
 	"FreeRTOS_glue.h"
@@ -678,10 +675,17 @@
 1687364352 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\stm32 board\src\system_stm32f4xx.c
 	"stm32f4xx.h"
 
-1687356406 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\main.c
+1687390352 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\main.c
 	"mapDisplay.h"
 	"utils.h"
 	"types.h"
 	"motion.h"
-	"nnxt.h"
+	"dijkstra.h"
+
+1687388123 c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\dijkstra.h
+	"types.h"
+
+1687390227 source:c:\users\tsuna\desktop\rbfinal\rbfinalproject\sourcecode\libs\extra\dijkstra.c
+	"dijkstra.h"
+	"utils.h"
 

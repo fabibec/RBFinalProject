@@ -296,7 +296,7 @@ void printRobot(uint8_t pos, const direction roboDir){
         }
 }
 
-void updateRoute(uint8_t* route, uint8_t routeLength, uint8_t currentIndex, direction* roboDir, uint8_t toDesk){
+void updateRoute(uint8_t* route, uint8_t routeLength, uint8_t currentIndex, direction roboDir, uint8_t toDesk){
     uint8_t row, col;
     if(toDesk){
         for(uint8_t i = 0; i < currentIndex; i++){
@@ -304,7 +304,7 @@ void updateRoute(uint8_t* route, uint8_t routeLength, uint8_t currentIndex, dire
                 drawBlock(row, col, LCD_COLOR_WHITE);
         }
         if(currentIndex != 0)
-            printRobot(route[currentIndex - 1], *roboDir);
+            printRobot(route[currentIndex - 1], roboDir);
     }
 
     else{
@@ -313,6 +313,6 @@ void updateRoute(uint8_t* route, uint8_t routeLength, uint8_t currentIndex, dire
             drawBlock(row, col, LCD_COLOR_WHITE);
         }
         if(currentIndex != 0)
-            printRobot(route[currentIndex], *roboDir);
+            printRobot(route[currentIndex], roboDir);
     }
 }

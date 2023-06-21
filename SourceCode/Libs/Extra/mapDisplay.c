@@ -276,16 +276,11 @@ void printRoute(uint8_t* route, uint8_t length){
     }
 }
 
-void updateRoute(uint8_t* route, uint8_t routeLength, uint8_t currentIndex, direction* roboDir){
+void printRobot(uint8_t pos, const direction roboDir){
     uint8_t row, col;
-    for(int i = 0; i < currentIndex; i++){
-            conv1Dto2D(route[i], &row, &col);
-            drawBlock(row, col, LCD_COLOR_WHITE);
-    }
-
-    conv1Dto2D(route[currentIndex - 1], &row, &col);
-    if(currentIndex != 0)
-        switch(*roboDir){
+    conv1Dto2D(pos, &row, &col);
+    if(pos != UINT8_MAX)
+        switch(roboDir){
                 case S:
                     drawSymbolDown(row, col, 0x026C);
                     break;
@@ -299,4 +294,25 @@ void updateRoute(uint8_t* route, uint8_t routeLength, uint8_t currentIndex, dire
                     drawSymbolRight(row, col, 0x026C);
                     break;
         }
+}
+
+void updateRoute(uint8_t* route, uint8_t routeLength, uint8_t currentIndex, direction* roboDir, uint8_t toDesk){
+    uint8_t row, col;
+    if(toDesk){
+        for(uint8_t i = 0; i < currentIndex; i++){
+                conv1Dto2D(route[i], &row, &col);
+                drawBlock(row, col, LCD_COLOR_WHITE);
+        }
+        if(currentIndex != 0)
+            printRobot(route[currentIndex - 1], *roboDir);
+    }
+
+    else{
+        for(uint8_t i = currentIndex; i < routeLength; ++i){
+            conv1Dto2D(route[i], &row, &col);
+            drawBlock(row, col, LCD_COLOR_WHITE);
+        }
+        if(currentIndex != 0)
+            printRobot(route[currentIndex], *roboDir);
+    }
 }

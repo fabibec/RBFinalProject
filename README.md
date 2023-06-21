@@ -69,57 +69,6 @@ After calculating the distance we can simply subtract it from the total distance
 This procedure is repeated until the distance is less than or equal to 2cm. 
 If this is the case, the motors will stop and the function will end.
 
-### function turn(uint8_t dir)
-The motion.c file also contains the funtion turn.
-It makes the robot turn left or right according to the input parameter dir.
-If dir is equal to 1, the robot will turn left and if dir is equal to 0, the robot will turn right.
-We need to declare several variables that will be used later to store
-the distance to be covered by the left and right motors (distanceL, distanceR).
-To assign these variables we have to calculate the distance that both wheels have to turn. 
-We have measured, that the distance between the two wheels is 8 cm.
-We also know, that the robot has to turn 90 degrees. 
-Using this information we can approximate the distance one wheel has to travel by calculating the circumference for a circle with a diameter of 8 cm. Then we have to multiply the calculated value by 1/4 because the wheels only have to travel 1/4 of the circle.
-
-1/4 * (8 * pi) = 2 * pi
-
-We want to avoid floating-point values so we multiply the result of the above equation by 1000.
-
-After calculating the distance that both wheels have to travel, we declare variables that will store the current degree value of both motors as well as the previous degree values (prev_degL, prev_degR, degL, degR).
-Then we define the variables motorL and motorR with 20 which represents the motor force for the left and right motor.
-
-TODO: Definition of variables diffL, diffR, offset.
-
-The next thing this function does is get the current motor degree for the left and right motors and assign that value to the prev_degL and prev_degR variables.
-
-We then start both motors using the ternary operator to evaluate the direction each motor must move using the dir parameter.
-
-The while loop makes sure that each motor travels the distance it has to travel. Therefore, the condition of the while loop will be evaluated as true as long as one of the distances (distanceL or distanceR) is greater than 0.
-
-Inside the while loop we first check if the distanceL variable is less than or equal to 0.
-If so, we stop the left motor because we have already moved enough distance on that side.
-Else if the distanceL variable is greater than 0, we get the current motor degree and store that value in the degL variable.
-Now that we have the previous and current degree value we can calculate the exact distance the wheel has turned since the last check.
-This can be done in the following way:
-1) Calculate the amount the wheel has turned:
-   First we calculate the difference between prev_degL and degL.
-   Then we multiply this value by 2 because the motor sensor returns 1 for
-   every 2 degrees it turned.
-   Dividing this result by 360 gives us the exact amount the wheel has turned.
-   ((degL - prev_degL) * 2) / 360
-
-2) Multiply the result by the CIRCUMFERENCE of the wheel:
-   By multiplying the amount the wheel turned by the CIRCUMFERENCE of the
-   wheel we get the exact distance it traveled.
-
-3) Multiply the result by 1000:
-   This must be done because we want to avoid floating point values.
-
-After calculating the distance the wheel has turned we subtract that value from the total distance it has to turn.
-
-The last operation of the else part is to assign the current degree value to the prev_degL variable so that we can do the same calculation steps in the next iteration.
-
-The same procedure is used for the right motor.
-
 
 ### Quang Thanh Lai (Route Creation &  Driving Controls)
 TODO

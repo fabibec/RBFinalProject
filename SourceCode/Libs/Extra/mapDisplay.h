@@ -4,7 +4,6 @@
 #include "nnxt.h"
 #include "types.h"
 
-//extern direction roboDirection;
 
 typedef enum{
     _start,

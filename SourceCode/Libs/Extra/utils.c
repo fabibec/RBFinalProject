@@ -145,13 +145,3 @@ int8_t turnDegrees(direction turnsTo, direction * roboDirection){
     else
         return 0;
 }
-
-/*
-void setRoboDir(direction d, direction * roboDirection){
-    roboDirection = d;
-}
-
-direction getRoboDir(){
-    return roboDirection;
-}
-*/

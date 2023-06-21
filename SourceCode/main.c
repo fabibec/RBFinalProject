@@ -5,10 +5,7 @@
 #include "nnxt.h"
 
 
-//direction roboDirection = S;
-
 /* Matrix conversion */
-//char mapStringMatrix[14][14];
 
 void convertMapStringToMatrix(char (*mapStringMatrix)[14]){
     const char* mapString = "\
@@ -41,12 +38,12 @@ void convertMapStringToMatrix(char (*mapStringMatrix)[14]){
 uint8_t destinations[] = {3, 3};
 // start index is stored as 1D index
 // TODO remove global var
-uint8_t start;
+//uint8_t start;
 // holds the tables positions at index [table name (either 1,2 or 3) - 1]
 // TODO remove global var
 table tables[3];
 
-void findStartAndTablePosition(char (*mapStringMatrix)[14]){
+void findStartAndTablePosition(char (*mapStringMatrix)[14], uint8_t * start){
 
     initTablesArray();
 
@@ -56,7 +53,7 @@ void findStartAndTablePosition(char (*mapStringMatrix)[14]){
         for (int8_t j = 1; j < 13; j++) {
             currentChar = mapStringMatrix[i][j];
             if (isStartPosition(currentChar)) {
-                start = conv2Dto1D(i,j);
+                *start = conv2Dto1D(i,j);
             } else if (isTablePosition(currentChar)){
                 tableIndex = (currentChar - '1');
                 fillTablePosition(tableIndex, i, j);
@@ -78,7 +75,7 @@ void initMapTiles(){
         mapTiles[i].prev = i;
     }
 }
-void dijkstra(char (*mapStringMatrix)[14]){
+void dijkstra(char (*mapStringMatrix)[14], const uint8_t start){
     initMapTiles();
 
     mapTiles[start].distance = 0;
@@ -158,7 +155,7 @@ void findClosestTableTile(table* t, uint8_t index){
     closestDestTiles[index] = (minDist1 < minDist2) ? index1 : index2;
 }
 
-void findRoute(uint8_t target, char (*mapStringMatrix)[14], direction * roboDirection){
+void findRoute(uint8_t target, char (*mapStringMatrix)[14], direction * roboDirection, const uint8_t start){
     // TODO finish stuff here
     // create Route
     uint8_t dist = mapTiles[target].distance;
@@ -296,17 +293,18 @@ void findRoute(uint8_t target, char (*mapStringMatrix)[14], direction * roboDire
 int main(){
     char mapStringMatrix[14][14];
     direction roboDirection = S;
+    uint8_t start;
 
     initMotorPorts();
     //Delay(1000);
     convertMapStringToMatrix(mapStringMatrix);
-    findStartAndTablePosition(mapStringMatrix);
+    findStartAndTablePosition(mapStringMatrix, &start);
     printMap(mapStringMatrix);
-    dijkstra(mapStringMatrix);
+    dijkstra(mapStringMatrix, start);
     findClosestTableTile(&tables[destinations[0] - 1], 0);
     findClosestTableTile(&tables[destinations[1] - 1], 1);
-    findRoute(closestDestTiles[0], mapStringMatrix, &roboDirection);
-    findRoute(closestDestTiles[1], mapStringMatrix, &roboDirection);
+    findRoute(closestDestTiles[0], mapStringMatrix, &roboDirection, start);
+    findRoute(closestDestTiles[1], mapStringMatrix, &roboDirection, start);
     makeSound();
     return 0;
 }

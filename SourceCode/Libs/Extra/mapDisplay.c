@@ -1,7 +1,6 @@
 #include "mapDisplay.h"
 #include "utils.h"
 
-//extern char mapStringMatrix[14][14];
 
 uint8_t s_Symbol[9][9] = {{0},
                           {0, 0, 0, 1, 1, 1, 0, 0, 0},

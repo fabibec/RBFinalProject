@@ -6,7 +6,6 @@
 // get rid of extern global var
 extern table tables[];
 extern tile mapTiles[];
-extern direction roboDirection;
 
 
 /* use 1D as 2D and vise versa*/
@@ -37,8 +36,6 @@ void exploreSurroundings(uint8_t index, uint8_t* adjacent);
 /* Driving */
 direction headsTo(uint8_t currentIndex, uint8_t nextIndex);
 int8_t turnDegrees(direction to, direction * roboDirection);
-//void setRoboDir(direction d, direction roboDirection);
-//direction getRoboDir();
 direction turnDirections(direction d, int8_t steps,bool clockwise);
 
 

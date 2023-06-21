@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EmBitz_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Libs\Display\inc\lcd.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Libs\Display\inc\lcd.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="27" />
 		</Cursor>
 	</File>
-	<File name="Libs\Extra\mapDisplay.c" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Libs\Display\src\stm32_adafruit_lcd.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7575" topLine="187" />
+			<Cursor1 position="6176" topLine="162" />
 		</Cursor>
 	</File>
-	<File name="Libs\Extra\mapDisplay.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Libs\Extra\mapDisplay.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="710" topLine="0" />
+			<Cursor1 position="7095" topLine="21" />
 		</Cursor>
 	</File>
-	<File name="Libs\Extra\motion.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Libs\Extra\mapDisplay.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3545" topLine="82" />
+			<Cursor1 position="107" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Libs\Extra\motion.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="251" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="56" />
+			<Collapse line="57" />
 		</Folding>
 	</File>
-	<File name="Libs\Extra\motion.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Libs\Extra\motion.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="57" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Libs\Extra\types.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Libs\Extra\types.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="36" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Libs\Extra\utils.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2394" topLine="22" />
+		</Cursor>
+		<Folding>
+			<Collapse line="5" />
+			<Collapse line="8" />
+			<Collapse line="14" />
+			<Collapse line="17" />
+			<Collapse line="23" />
+			<Collapse line="26" />
+			<Collapse line="29" />
+			<Collapse line="37" />
+			<Collapse line="46" />
+			<Collapse line="49" />
+			<Collapse line="52" />
+			<Collapse line="55" />
+			<Collapse line="61" />
+			<Collapse line="74" />
+			<Collapse line="115" />
+		</Folding>
+	</File>
+	<File name="Libs\Extra\utils.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="107" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\FreeRTOS\FreeRTOS_glue.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -39,9 +71,14 @@
 			<Cursor1 position="2710" topLine="36" />
 		</Cursor>
 	</File>
+	<File name="Libs\FreeRTOS\Source\event_groups.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="557" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="Libs\HAL\src\em_interrupts.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="753" topLine="0" />
+			<Cursor1 position="7348" topLine="294" />
 		</Cursor>
 	</File>
 	<File name="Libs\NNXT\src\nnxt_display_glue.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -64,12 +101,17 @@
 			<Cursor1 position="10566" topLine="191" />
 		</Cursor>
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7328" topLine="112" />
+			<Cursor1 position="4947" topLine="24" />
 		</Cursor>
 		<Folding>
-			<Collapse line="44" />
+			<Collapse line="12" />
+			<Collapse line="45" />
+			<Collapse line="70" />
+			<Collapse line="77" />
+			<Collapse line="120" />
+			<Collapse line="148" />
 		</Folding>
 	</File>
 </EmBitz_layout_file>

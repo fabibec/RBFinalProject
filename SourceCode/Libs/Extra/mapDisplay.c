@@ -1,6 +1,6 @@
 #include "mapDisplay.h"
+#include "utils.h"
 
-extern char mapStringMatrix[14][14];
 
 uint8_t s_Symbol[9][9] = {{0},
                           {0, 0, 0, 1, 1, 1, 0, 0, 0},
@@ -166,7 +166,7 @@ void drawSymbolRight(uint8_t x, uint8_t y, uint16_t color){
     }
 }
 
-void printMap(){
+void printMap(char (*mapStringMatrix)[14]){
     for(int i = 0; i < 14; ++i){
         for(int j = 0; j < 14; ++j){
             if(mapStringMatrix[i][j] == '#')
@@ -179,28 +179,27 @@ void printMap(){
                 drawSymbolTwo(i, j, 0x0371);
             else if(mapStringMatrix[i][j] == '3')
                 drawSymbolThree(i, j, 0x0371);
-
         }
     }
 }
 
-uint8_t valInArray(uint8_t val, uint8_t* arr, uint8_t size){
-    for(uint8_t i = (size -1); i < UINT8_MAX; --i){
+uint8_t valInArray(uint8_t val, uint8_t* arr, uint8_t length){
+    for(uint8_t i = (length -1); i < UINT8_MAX; --i){
         if(arr[i] == val)
             return 1;
     }
     return 0;
 }
 
-void printRouteToMap(uint8_t* route, uint8_t size, uint8_t currentStep, uint8_t toDesk){
+void printRouteToMap(uint8_t* route, uint8_t length, uint8_t currentStep, uint8_t toDesk, char (*mapStringMatrix)[14], const direction roboDirection){
     NNXT_LCD_Clear(LCD_COLOR_WHITE);
     if(toDesk)
         route += currentStep;
     else
-        size = currentStep;
+        length = currentStep;
 
     uint8_t index;
-    if(currentStep != size){
+    if(currentStep != length){
         for(int i = 0; i < 14; ++i){
             for(int j = 0; j < 14; ++j){
                 index = conv2Dto1D(i, j);
@@ -214,7 +213,7 @@ void printRouteToMap(uint8_t* route, uint8_t size, uint8_t currentStep, uint8_t 
                     drawSymbolTwo(i, j, 0x0371);
                 else if(mapStringMatrix[i][j] == '3')
                     drawSymbolThree(i, j, 0x0371);
-                else if(valInArray(index, route, size))
+                else if(valInArray(index, route, length))
                     drawBlock(i, j, 0xB6F1);
             }
         }

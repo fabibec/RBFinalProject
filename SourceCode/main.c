@@ -7,7 +7,7 @@
 
 /* Matrix conversion */
 void convertMapStringToMatrix(char (*mapStringMatrix)[14]){
-    const char* mapString = "\
+    //const char* mapString = "\
 ##############\
 # S          #\
 ######       #\
@@ -23,7 +23,7 @@ void convertMapStringToMatrix(char (*mapStringMatrix)[14]){
 #     #      #\
 ##############";
 
-    //const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
+    const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
 
     for (uint8_t i = 0; i < 196; i++) {
         mapStringMatrix[(i/14)][(i%14)] = mapString[i];
@@ -148,12 +148,9 @@ void findClosestTableTile(table* t, uint8_t index, const tile * mapTiles, uint8_
 }
 
 void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * roboDirection, const uint8_t start, const tile * mapTiles){
-    // TODO finish stuff here
-    // create Route
     uint8_t dist = mapTiles[target].distance;
     uint8_t route[dist];
     uint8_t arrRouteIndex = dist - 1;
-    //uint8_t length = dist;
     uint8_t currentTile = target;
 
     uint8_t currentIndex = start;
@@ -166,12 +163,8 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
         --arrRouteIndex;
     }
 
-    printRouteToMap(route, dist, 0, 1, mapStringMatrix, *roboDirection);
+    printRoute(route, dist);
     makeSound();
-
-    // drive to target
-    //uint8_t currentIndex = start
-    //uint8_t forwardCount = 0;
 
     for (uint8_t i = 0; i <= (dist - 1); ++i) {
         direction turnsTo = headsTo(currentIndex, route[i]);
@@ -186,30 +179,27 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnRight();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(route, dist, i, 1, mapStringMatrix, *roboDirection);
+                updateRoute(route, dist, i, roboDirection, 1);
                 break;
             case -1:
                 if(forwardCount)
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnLeft();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(route, dist, i, 1, mapStringMatrix, *roboDirection);
+                updateRoute(route, dist, i, roboDirection, 1);
                 break;
         }
         currentIndex = route[i];
     }
     if(forwardCount){
         driveTile(forwardCount);
-        printRouteToMap(route, dist, dist, 1, mapStringMatrix, *roboDirection);
+        updateRoute(route, dist, dist, roboDirection, 1);
     }
 
     makeSound();
     turnAround();
-    //setRoboDir(turnDirections(getRoboDir(), 2, true));
     *roboDirection = turnDirections(*roboDirection, 2, true);
 
     forwardCount = 0;
@@ -221,7 +211,7 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
         routeBack[k+1] = route[k];
     }
 
-    printRouteToMap(routeBack, dist + 1, 0, 0, mapStringMatrix, *roboDirection);
+    printRoute(routeBack + 1, dist);
 
     for (uint8_t k = (dist - 1); k < INT8_MAX; --k) {
         direction turnsTo = headsTo(currentIndex, routeBack[k]);
@@ -235,23 +225,22 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnRight();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix, *roboDirection);
+                updateRoute(routeBack + 1, dist, k, roboDirection, 0);
                 break;
             case -1:
                 if(forwardCount)
                     driveTile(forwardCount);
                 forwardCount = 1;
                 turnLeft();
-                //setRoboDir(turnsTo);
                 *roboDirection = turnsTo;
-                printRouteToMap(routeBack, dist + 1, k, 0, mapStringMatrix, *roboDirection);
+                updateRoute(routeBack + 1, dist, k, roboDirection, 0);
                 break;
         }
         currentIndex = routeBack[k];
     }
-    // turn the robot so it's facing downwards
+
+    // turn the robot so it's facing south again
     switch (turnDegrees(S, roboDirection)) {
         case 0:
             forwardCount++;
@@ -260,24 +249,22 @@ void findRoute(const uint8_t target, char (*mapStringMatrix)[14], direction * ro
             if(forwardCount)
                 driveTile(forwardCount);
             turnRight();
-            //setRoboDir(S);
             *roboDirection = S;
             break;
         case -1:
             if(forwardCount)
                 driveTile(forwardCount);
             turnLeft();
-            //setRoboDir(S);
             *roboDirection = S;
             break;
         case 2:
             if(forwardCount)
                 driveTile(forwardCount);
             turnAround();
-            //setRoboDir(S);
             *roboDirection = S;
             break;
     }
+    updateRoute(routeBack + 1, dist, 0, roboDirection, 0);
 }
 
 /* Dijkstra Pathfinding End */

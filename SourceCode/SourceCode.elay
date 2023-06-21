@@ -13,12 +13,12 @@
 	</File>
 	<File name="Libs\Extra\mapDisplay.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7095" topLine="21" />
+			<Cursor1 position="11259" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\Extra\mapDisplay.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="107" topLine="0" />
+			<Cursor1 position="1070" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\Extra\motion.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -103,15 +103,15 @@
 	</File>
 	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4947" topLine="24" />
+			<Cursor1 position="5031" topLine="38" />
 		</Cursor>
 		<Folding>
-			<Collapse line="12" />
-			<Collapse line="45" />
-			<Collapse line="70" />
-			<Collapse line="77" />
-			<Collapse line="120" />
-			<Collapse line="148" />
+			<Collapse line="37" />
+			<Collapse line="62" />
+			<Collapse line="69" />
+			<Collapse line="74" />
+			<Collapse line="112" />
+			<Collapse line="140" />
 		</Folding>
 	</File>
 </EmBitz_layout_file>

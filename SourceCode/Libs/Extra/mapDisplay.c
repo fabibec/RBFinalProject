@@ -1,7 +1,7 @@
 #include "mapDisplay.h"
 #include "utils.h"
 
-extern char mapStringMatrix[14][14];
+//extern char mapStringMatrix[14][14];
 
 uint8_t s_Symbol[9][9] = {{0},
                           {0, 0, 0, 1, 1, 1, 0, 0, 0},
@@ -167,7 +167,7 @@ void drawSymbolRight(uint8_t x, uint8_t y, uint16_t color){
     }
 }
 
-void printMap(){
+void printMap(char (*mapStringMatrix)[14]){
     for(int i = 0; i < 14; ++i){
         for(int j = 0; j < 14; ++j){
             if(mapStringMatrix[i][j] == '#')
@@ -192,7 +192,7 @@ uint8_t valInArray(uint8_t val, uint8_t* arr, uint8_t size){
     return 0;
 }
 
-void printRouteToMap(uint8_t* route, uint8_t size, uint8_t currentStep, uint8_t toDesk){
+void printRouteToMap(uint8_t* route, uint8_t size, uint8_t currentStep, uint8_t toDesk, char (*mapStringMatrix)[14]){
     NNXT_LCD_Clear(LCD_COLOR_WHITE);
     if(toDesk)
         route += currentStep;

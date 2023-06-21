@@ -8,9 +8,9 @@
 direction roboDirection = S;
 
 /* Matrix conversion */
-char mapStringMatrix[14][14];
+//char mapStringMatrix[14][14];
 
-void convertMapStringToMatrix(){
+void convertMapStringToMatrix(char (*mapStringMatrix)[14]){
     const char* mapString = "\
 ##############\
 # S          #\
@@ -43,7 +43,7 @@ uint8_t start;
 // holds the tables positions at index [table name (either 1,2 or 3) - 1]
 table tables[3];
 
-void findStartAndTablePosition(){
+void findStartAndTablePosition(char (*mapStringMatrix)[14]){
 
     initTablesArray();
 
@@ -75,7 +75,7 @@ void initMapTiles(){
         mapTiles[i].prev = i;
     }
 }
-void dijkstra(){
+void dijkstra(char (*mapStringMatrix)[14]){
     initMapTiles();
 
     mapTiles[start].distance = 0;
@@ -155,7 +155,8 @@ void findClosestTableTile(table* t, uint8_t index){
     closestDestTiles[index] = (minDist1 < minDist2) ? index1 : index2;
 }
 
-void findRoute(uint8_t target){
+void findRoute(uint8_t target, char (*mapStringMatrix)[14]){
+    //TODO finish stuff here
     // create Route
     uint8_t dist = mapTiles[target].distance;
     uint8_t route[dist];
@@ -173,7 +174,7 @@ void findRoute(uint8_t target){
         --arrRouteIndex;
     }
 
-    printRouteToMap(&route, dist, 0, 1);
+    printRouteToMap(&route, dist, 0, 1, mapStringMatrix);
     makeSound();
 
     // drive to target
@@ -194,7 +195,7 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnRight();
                 setRoboDir(turnsTo);
-                printRouteToMap(&route, dist, i, 1);
+                printRouteToMap(&route, dist, i, 1, mapStringMatrix);
                 break;
             case -1:
                 if(forwardCount)
@@ -202,14 +203,14 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnLeft();
                 setRoboDir(turnsTo);
-                printRouteToMap(&route, dist, i, 1);
+                printRouteToMap(&route, dist, i, 1, mapStringMatrix);
                 break;
         }
         currentIndex = route[i];
     }
     if(forwardCount){
         driveTile(forwardCount);
-        printRouteToMap(&route, dist, dist, 1);
+        printRouteToMap(&route, dist, dist, 1, mapStringMatrix);
     }
 
     makeSound();
@@ -224,7 +225,7 @@ void findRoute(uint8_t target){
         routeBack[k+1] = route[k];
     }
 
-    printRouteToMap(&routeBack, dist + 1, 0, 0);
+    printRouteToMap(&routeBack, dist + 1, 0, 0, mapStringMatrix);
 
     for (uint8_t k = (dist - 1); k < INT8_MAX; --k) {
         direction to = headsTo(currentIndex, routeBack[k]);
@@ -239,7 +240,7 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnRight();
                 setRoboDir(to);
-                printRouteToMap(&routeBack, dist + 1, k, 0);
+                printRouteToMap(&routeBack, dist + 1, k, 0, mapStringMatrix);
                 break;
             case -1:
                 if(forwardCount)
@@ -247,7 +248,7 @@ void findRoute(uint8_t target){
                 forwardCount = 1;
                 turnLeft();
                 setRoboDir(to);
-                printRouteToMap(&routeBack, dist + 1, k, 0);
+                printRouteToMap(&routeBack, dist + 1, k, 0, mapStringMatrix);
                 break;
         }
         currentIndex = routeBack[k];
@@ -281,16 +282,18 @@ void findRoute(uint8_t target){
 /* Dijkstra Pathfinding End */
 
 int main(){
+    char mapStringMatrix[14][14];
+
     initMotorPorts();
     //Delay(1000);
-    convertMapStringToMatrix();
-    findStartAndTablePosition();
-    printMap();
-    dijkstra();
+    convertMapStringToMatrix(mapStringMatrix);
+    findStartAndTablePosition(mapStringMatrix);
+    printMap(mapStringMatrix);
+    dijkstra(mapStringMatrix);
     findClosestTableTile(&tables[destinations[0] - 1], 0);
     findClosestTableTile(&tables[destinations[1] - 1], 1);
-    findRoute(closestDestTiles[0]);
-    findRoute(closestDestTiles[1]);
+    findRoute(closestDestTiles[0], mapStringMatrix);
+    findRoute(closestDestTiles[1], mapStringMatrix);
     makeSound();
     return 0;
 }

@@ -98,7 +98,7 @@ bool isCurve(uint8_t index1, uint8_t index2){
 direction headsTo(uint8_t currentIndex, uint8_t nextIndex){
     uint8_t x1, x2, y1, y2;
 
-    //TODO: change parameter from y,x to x,y
+    //TODO change parameter from y,x to x,y
     conv1Dto2D(currentIndex, &y1, &x1);
     conv1Dto2D(nextIndex, &y2, &x2);
 

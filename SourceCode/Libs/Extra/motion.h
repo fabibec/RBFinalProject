@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-extern direction roboDirection;
+//extern direction roboDirection;
 
 void initMotorPorts();
 void driveTile(uint8_t);

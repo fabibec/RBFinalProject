@@ -192,7 +192,7 @@ uint8_t valInArray(uint8_t val, uint8_t* arr, uint8_t length){
     return 0;
 }
 
-void printRouteToMap(uint8_t* route, uint8_t length, uint8_t currentStep, uint8_t toDesk, char (*mapStringMatrix)[14]){
+void printRouteToMap(uint8_t* route, uint8_t length, uint8_t currentStep, uint8_t toDesk, char (*mapStringMatrix)[14], const direction roboDirection){
     NNXT_LCD_Clear(LCD_COLOR_WHITE);
     if(toDesk)
         route += currentStep;

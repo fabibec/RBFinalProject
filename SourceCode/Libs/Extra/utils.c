@@ -98,7 +98,7 @@ bool isCurve(uint8_t index1, uint8_t index2){
 direction headsTo(uint8_t currentIndex, uint8_t nextIndex){
     uint8_t x1, x2, y1, y2;
 
-    //TODO change parameter from y,x to x,y
+    // TODO change parameter from y,x to x,y
     conv1Dto2D(currentIndex, &y1, &x1);
     conv1Dto2D(nextIndex, &y2, &x2);
 
@@ -117,7 +117,7 @@ bool enumUnderflow(direction d){
     return ((uint8_t) d - 1) < 0;
 }
 
-direction turnDirections(direction d, int8_t steps,bool clockwise){
+direction turnDirections(const direction d, int8_t steps,bool clockwise){
     direction new = d;
     for (int8_t i = 0; i < steps; ++i) {
         if(clockwise){
@@ -133,8 +133,8 @@ direction turnDirections(direction d, int8_t steps,bool clockwise){
 }
 
 // -1 left Turn; 0 no turn; 1 right Turn; 2 180 deg
-int8_t turnDegrees(direction turnsTo){
-    direction currentDirection = roboDirection;
+int8_t turnDegrees(direction turnsTo, direction * roboDirection){
+    direction currentDirection = *roboDirection;
 
     if(((currentDirection + 1) % 4) == turnsTo)
         return 1;
@@ -146,10 +146,12 @@ int8_t turnDegrees(direction turnsTo){
         return 0;
 }
 
-void setRoboDir(direction d){
+/*
+void setRoboDir(direction d, direction * roboDirection){
     roboDirection = d;
 }
 
 direction getRoboDir(){
     return roboDirection;
 }
+*/

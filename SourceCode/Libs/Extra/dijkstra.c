@@ -10,6 +10,9 @@ tile mapTiles[196];
 uint8_t closestDestTiles[2];
 
 
+char ** getMapStringMatrix(){
+    return mapStringMatrix;
+}
 uint8_t getStart(){
     return start;
 }
@@ -19,7 +22,9 @@ tile * getMapTiles(){
 uint8_t getDestTile(uint8_t index){
     return closestDestTiles[index];
 }
-
+uint8_t getDestTablesAtIndex(uint8_t index){
+    return destinations[index];
+}
 
 void initDijkstra(){
     initMapTiles();

@@ -3,9 +3,11 @@
 
 #include "types.h"
 
+char ** getMapStringMatrix();
 uint8_t getStart();
 tile * getMapTiles();
 uint8_t getDestTile(uint8_t);
+uint8_t getDestTablesAtIndex(uint8_t);
 
 void initDijkstra();
 void initMapTiles();

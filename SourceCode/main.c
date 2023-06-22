@@ -275,8 +275,8 @@ void runRobo(uint8_t targetIndex){
         --arrRouteIndex;
     }
 
-    //printRoute(route, dist);
-    //makeSound();
+    printRoute(route, dist);
+    makeSound();
 
     for(uint8_t i = 0; i <= (dist - 1); ++i){
         const direction turnsTo = headsTo(currentIndex, route[i]);
@@ -382,7 +382,7 @@ void runDijkstra(){
     convertMapStringToMatrix();
     findStartAndTablePosition();
 
-    //printMap(mapStringMatrix);
+    printMap((char (*)[14])getMapStringMatrix(), getDestTablesAtIndex(0), getDestTablesAtIndex(1));
 
     dijkstra();
     findClosestTableTile(0);

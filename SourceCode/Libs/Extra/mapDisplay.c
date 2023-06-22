@@ -246,15 +246,15 @@ void printRobot(const uint8_t pos, const direction roboDir){
                     break;
                 case N:
                     //drawSymbolUp(row, col, 0x026C);
-                    drawSymbolDown(row, col, 0xF800);
+                    drawSymbolUp(row, col, 0xF800);
                     break;
                 case W:
                     //drawSymbolLeft(row, col, 0x026C);
-                    drawSymbolDown(row, col, 0xF800);
+                    drawSymbolLeft(row, col, 0xF800);
                     break;
                 case E:
                     //drawSymbolRight(row, col, 0x026C);
-                    drawSymbolDown(row, col, 0xF800);
+                    drawSymbolRight(row, col, 0xF800);
                     break;
         }
 }

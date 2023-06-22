@@ -311,6 +311,7 @@ void runRobo(uint8_t targetIndex){
     }
 
     makeSound();
+    Delay(500);
     turnAround();
 
     roboDirection = turnDirections(roboDirection, 2, true);

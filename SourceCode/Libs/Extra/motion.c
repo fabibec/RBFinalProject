@@ -15,7 +15,7 @@ void initMotorPorts(){
 
 // TODO regler for driveTile
 void driveTile(uint8_t tiles){
-    int32_t distance = 25 * tiles * 1000;
+    /*int32_t distance = 25 * tiles * 1000;
 
     uint32_t deg, prev_deg;
 
@@ -34,18 +34,20 @@ void driveTile(uint8_t tiles){
     }
 
     Motor_Stop(LEFT_MOTOR, Motor_stop_float);
-    Motor_Stop(RIGHT_MOTOR, Motor_stop_float);
+    Motor_Stop(RIGHT_MOTOR, Motor_stop_float);*/
 
-    /*int32_t distanceL, distanceR;
+    int32_t distanceL, distanceR;
     distanceL = distanceR = 25 * tiles * 1000;
 
     uint32_t degL, degR, prevDegL, prevDegR;
 
-    uint8_t motorL, motorR;
+    uint8_t motorL, motorR, diffL, diffR, offSet;
     motorL = 51;
     motorR = 50;
+    offSet = 5;
 
-    uint32_t offSet = 2 * 1000;
+    uint32_t buffer = 2 * 1000;
+
 
     Motor_Tacho_GetCounter(LEFT_MOTOR, &prevDegL);
     Motor_Tacho_GetCounter(RIGHT_MOTOR, &prevDegR);
@@ -53,21 +55,38 @@ void driveTile(uint8_t tiles){
     Motor_Drive(LEFT_MOTOR, Motor_dir_forward, motorL);
     Motor_Drive(RIGHT_MOTOR, Motor_dir_forward, motorR);
 
-    while(distanceL > offSet && distanceR > offSet)
+    while(distanceL > buffer && distanceR > buffer)
     {
+        Motor_Drive(LEFT_MOTOR, Motor_dir_forward, motorL);
+        Motor_Drive(RIGHT_MOTOR, Motor_dir_forward, motorR);
+
         Motor_Tacho_GetCounter(LEFT_MOTOR, &degL);
         Motor_Tacho_GetCounter(RIGHT_MOTOR, &degR);
 
-        distanceL -= ((getAbsDiff(degL, prevDegL) * 2 / 360.0) * CIRCUMFERENCE * 1000);
-        distanceR -= ((getAbsDiff(degR, prevDegR) * 2 / 360.0) * CIRCUMFERENCE * 1000);
+        diffL = getAbsDiff(degL, prevDegL);
+        diffR = getAbsDiff(degR, prevDegR);
+
+        distanceL -= ((diffL * 2 / 360.0) * CIRCUMFERENCE * 1000);
+        distanceR -= ((diffR * 2 / 360.0) * CIRCUMFERENCE * 1000);
         prevDegL = degL;
         prevDegR = degR;
+
+        if(diffL != diffR){
+            if((diffL + offSet) < diffR)
+            {
+                ++motorL;
+            }
+            else if(diffL > (diffR + offSet))
+            {
+                ++motorR;
+            }
+        }
 
         Delay(150);
     }
 
     Motor_Stop(LEFT_MOTOR, Motor_stop_float);
-    Motor_Stop(RIGHT_MOTOR, Motor_stop_float);*/
+    Motor_Stop(RIGHT_MOTOR, Motor_stop_float);
 }
 
 uint32_t getAbsDiff(uint32_t a, uint32_t b) {
@@ -78,7 +97,7 @@ void turn(uint8_t dir) {
     int16_t distanceL, distanceR;
     distanceL = distanceR = (2.0 * 3.14) * 1000;
     uint32_t prev_degL, prev_degR, degL, degR;
-    uint8_t motorL = 20;
+    uint8_t motorL = 21;
     uint8_t motorR = 20;
     uint8_t diffL = 0;
     uint8_t diffR = 0;

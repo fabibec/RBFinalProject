@@ -18,21 +18,21 @@ TODO
 
 ### Florian Remberger (Importing & Driving Controls)
 ## Importing
-Importing the map is quite easy, because we do not have to read it directly from a text file. 
-The map string is stored in a const char* variable called mapString.
-It is located in main.c file and has to be changed manually if you want the robot to use another map.
+Importing the map is quite simple. We don't need to read it directly from a text file. 
+A const char* variable called mapString is used to store the map string.
+It is located in the main.c file. It must be changed manually if you want the robot to use a different map.
 
-The 2D array mapStringMatrix is also declared in main.c and can be filled with the characters from mapString via a simple for-loop.
+The 2D array mapStringMatrix is also declared in main.c and can be filled with the characters from mapString using a simple for-loop.
 
-We have to run from i = 0 up to i < 196 incrementing i after each loop, because the 14x14 map stored in the string contains 196 character (14 * 14 = 196).
-For every character we have to calculate the right Row and Column where it should be stored in the 2D Array.
+We need to iterate from i = 0 to i < 196, incrementing i after each loop. This is because the 14x14 map stored in the string contains 196 characters (14 * 14 = 196).
+For each character, we must calculate the correct row and column to store in the 2D array.
 
-The Row can be determined by dividing i by 14. This calculation will be evaluated as a integral number due to the datatypes of i (uint8_t) and 14 (int by default). 
-There for the result will be a whole number between 0 and 13 which will determine in which Row of the Array the character on position i in mapString should be stored.
+The row can be determined by dividing i by 14. Due to the datatypes of i (uint8_t) and 14 (int by default), this calculation is evaluated as an integer. 
+The result is an integer between 0 and 13, which determines in which row of the array the character at position i in mapString will be stored.
 
-The Column will be calculated by the operation i % 14. This will also return a whole number between 0 and 13 representing the Column.
+The column is calculated by the operation i % 14. This will also return an integer between 0 and 13 that represents the column of the array.
 
-Using both calculations we can now compose them to get the following equation.
+Using both calculations, we can now combine them to get the following equation.
 mapStringMatrix[i/14][i%14] = mapString[i]
 
 ## Driving Controls

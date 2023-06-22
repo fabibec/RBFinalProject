@@ -15,6 +15,7 @@ void initMotorPorts(){
 
 // TODO regler for driveTile
 void driveTile(uint8_t tiles){
+    /*
     // distance which should be driven in
     //char msg[20];
     //char msg1[20];
@@ -38,19 +39,47 @@ void driveTile(uint8_t tiles){
         Delay(200);
         Motor_Tacho_GetCounter(RIGHT_MOTOR, &deg);
 
-        /*
-        sprintf(msg1, "%d", (int)deg);
-        sprintf(msg2, "%d", (int)prev_deg);
-        printText(1, msg1);
-        printText(2, msg2);
-        */
+        //sprintf(msg1, "%d", (int)deg);
+        //sprintf(msg2, "%d", (int)prev_deg);
+        //printText(1, msg1);
+        //printText(2, msg2);
+
 
         distance -= ((getAbsDiff(deg, prev_deg)*2/360.0) * CIRCUMFERENCE * 1000);
         prev_deg = deg;
     }
 
     Motor_Stop(LEFT_MOTOR, Motor_stop_float);
-    Motor_Stop(RIGHT_MOTOR, Motor_stop_float);
+    Motor_Stop(RIGHT_MOTOR, Motor_stop_float);*/
+
+    int32_t distanceL, distanceR;
+    distanceL = distanceR = 25 * tiles * 1000;
+
+    uint32_t degL, degR, prevDegL, prevDegR;
+
+    uint8_t motorL, motorR;
+    motorL = motorR = 50;
+
+    uint32_t buffer = 2 * 1000;
+
+    Motor_Tacho_GetCounter(LEFT_MOTOR, &prevDegL);
+    Motor_Tacho_GetCounter(RIGHT_MOTOR, &prevDegR);
+
+    Motor_Drive(LEFT_MOTOR, Motor_dir_forward, motorL);
+    Motor_Drive(RIGHT_MOTOR, Motor_dir_forward, motorR);
+
+    while(distanceL < buffer && distanceR < buffer)
+    {
+        Motor_Tacho_GetCounter(LEFT_MOTOR, &degL);
+        Motor_Tacho_GetCounter(RIGHT_MOTOR, &degR);
+
+        distanceL -= ((getAbsDiff(degL, prevDegL) * 2 / 360.0) * CIRCUMFERENCE * 1000);
+        distanceR -= ((getAbsDiff(degR, prevDegR) * 2 / 360.0) * CIRCUMFERENCE * 1000);
+        prevDegL = degL;
+        prevDegR = degR;
+
+        Delay(150);
+    }
 }
 
 uint32_t getAbsDiff(uint32_t a, uint32_t b) {

@@ -4,13 +4,6 @@
 #include "types.h"
 
 
-/*typedef enum{
-    _start,
-    one,
-    two,
-    three
-} bitSymbol;*/
-
 
 void drawBlock(uint8_t, uint8_t, uint16_t);
 void drawSymbolStart(uint8_t, uint8_t, uint16_t);

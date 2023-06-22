@@ -72,7 +72,6 @@ uint8_t circle_Symbol[9][9] = {{0},
                           {0, 0, 0, 1, 1, 1, 0, 0, 0},
                           {0}};
 
-//uint8_t *symbolTable[6][9][9] = {&s_Symbol, &one_Symbol, &two_Symbol, &three_Symbol, &arrowDown_Symbol, &arrowDown_Symbol};
 
 
 
@@ -194,20 +193,21 @@ void printMap(char (*mapStringMatrix)[14], uint8_t dest1, uint8_t dest2){
             if(mapStringMatrix[i][j] == '#'){
                 drawBlock(i, j, LCD_COLOR_BLACK);
             } else if(mapStringMatrix[i][j] == 'S'){
-                drawSymbolStart(i, j, 0x75C8);
+                //drawSymbolStart(i, j, 0x75C8);
+                drawSymbolStart(i, j, 0x2580);
             } else if(mapStringMatrix[i][j] == '1'){
                 if(dest1 == 1 || dest2 == 1)
-                    drawSymbolOne(i, j, 0x07FF);
+                    drawSymbolOne(i, j, 0x041F);
                 else
                     drawSymbolOne(i, j, 0x0371);
             } else if(mapStringMatrix[i][j] == '2'){
                 if(dest1 == 2 || dest2 == 2)
-                    drawSymbolTwo(i, j, 0x07FF);
+                    drawSymbolTwo(i, j, 0x041F);
                 else
                     drawSymbolTwo(i, j, 0x0371);
             } else if(mapStringMatrix[i][j] == '3'){
                 if(dest1 == 3 || dest2 == 3)
-                    drawSymbolThree(i, j, 0x07FF);
+                    drawSymbolThree(i, j, 0x041F);
                 else
                     drawSymbolThree(i, j, 0x0371);
             }

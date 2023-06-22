@@ -11,29 +11,29 @@
 			<Cursor1 position="6176" topLine="162" />
 		</Cursor>
 	</File>
-	<File name="Libs\Extra\dijkstra.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="Libs\Extra\dijkstra.c" open="1" top="1" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="208" topLine="0" />
+			<Cursor1 position="124" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\Extra\dijkstra.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="82" topLine="0" />
+			<Cursor1 position="226" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\Extra\mapDisplay.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9451" topLine="213" />
+			<Cursor1 position="7795" topLine="187" />
 		</Cursor>
 	</File>
 	<File name="Libs\Extra\mapDisplay.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="659" topLine="0" />
+			<Cursor1 position="86" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\Extra\motion.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="298" topLine="0" />
+			<Cursor1 position="1508" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\Extra\motion.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -53,27 +53,27 @@
 	</File>
 	<File name="Libs\Extra\utils.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2524" topLine="42" />
+			<Cursor1 position="1819" topLine="0" />
 		</Cursor>
 		<Folding>
 			<Collapse line="4" />
 			<Collapse line="7" />
 			<Collapse line="13" />
 			<Collapse line="16" />
-			<Collapse line="96" />
-			<Collapse line="113" />
-			<Collapse line="116" />
-			<Collapse line="131" />
+			<Collapse line="22" />
+			<Collapse line="39" />
+			<Collapse line="42" />
+			<Collapse line="57" />
 		</Folding>
 	</File>
 	<File name="Libs\Extra\utils.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1052" topLine="0" />
+			<Cursor1 position="505" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Libs\FreeRTOS\FreeRTOS_glue.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2710" topLine="36" />
+			<Cursor1 position="2801" topLine="36" />
 		</Cursor>
 	</File>
 	<File name="Libs\FreeRTOS\Source\event_groups.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -106,9 +106,9 @@
 			<Cursor1 position="10566" topLine="191" />
 		</Cursor>
 	</File>
-	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7793" topLine="223" />
+			<Cursor1 position="4259" topLine="121" />
 		</Cursor>
 	</File>
 </EmBitz_layout_file>

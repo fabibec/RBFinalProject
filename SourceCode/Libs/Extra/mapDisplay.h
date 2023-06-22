@@ -3,7 +3,13 @@
 
 #include "types.h"
 
-
+typedef enum{
+    ROBOT_COLOR = 0x5C54,
+    OBSTACLE_COLOR = 0x530D,
+    ROUTE_COLOR = 0xAFE6,
+    NO_DEST_COLOR = 0xD9E5,
+    DEST_COLOR = 0x0653
+} DISPLAY_COLORS;
 
 void drawBlock(uint8_t, uint8_t, uint16_t);
 void drawSymbolStart(uint8_t, uint8_t, uint16_t);

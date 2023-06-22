@@ -4,7 +4,7 @@
 
 char mapStringMatrix[14][14];
 uint8_t start;
-uint8_t destinations[] = {1, 2};
+uint8_t destinations[] = {2, 3};
 table tables[3];
 tile mapTiles[196];
 uint8_t closestDestTiles[2];

@@ -152,11 +152,9 @@ void init(){
 }
 int main(){
     init();
-    //runDijkstra();
-    //runRobo(0);
-    //runRobo(1);
-
-    driveTile(5);
+    runDijkstra();
+    runRobo(0);
+    runRobo(1);
 
     return 0;
 }

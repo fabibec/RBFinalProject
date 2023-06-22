@@ -193,23 +193,22 @@ void printMap(char (*mapStringMatrix)[14], uint8_t dest1, uint8_t dest2){
             if(mapStringMatrix[i][j] == '#'){
                 drawBlock(i, j, LCD_COLOR_BLACK);
             } else if(mapStringMatrix[i][j] == 'S'){
-                //drawSymbolStart(i, j, 0x75C8);
-                drawSymbolStart(i, j, 0x2580);
+                drawSymbolStart(i, j, NO_DEST_COLOR);
             } else if(mapStringMatrix[i][j] == '1'){
                 if(dest1 == 1 || dest2 == 1)
-                    drawSymbolOne(i, j, 0x041F);
+                    drawSymbolOne(i, j, DEST_COLOR);
                 else
-                    drawSymbolOne(i, j, 0x0371);
+                    drawSymbolOne(i, j, NO_DEST_COLOR);
             } else if(mapStringMatrix[i][j] == '2'){
                 if(dest1 == 2 || dest2 == 2)
-                    drawSymbolTwo(i, j, 0x041F);
+                    drawSymbolTwo(i, j, DEST_COLOR);
                 else
-                    drawSymbolTwo(i, j, 0x0371);
+                    drawSymbolTwo(i, j, NO_DEST_COLOR);
             } else if(mapStringMatrix[i][j] == '3'){
                 if(dest1 == 3 || dest2 == 3)
-                    drawSymbolThree(i, j, 0x041F);
+                    drawSymbolThree(i, j, DEST_COLOR);
                 else
-                    drawSymbolThree(i, j, 0x0371);
+                    drawSymbolThree(i, j, NO_DEST_COLOR);
             }
         }
     }
@@ -229,8 +228,7 @@ void printRoute(uint8_t * route, uint8_t length){
         for(int j = 0; j < 14; ++j){
             index = conv2Dto1D(i, j);
             if(valInArray(index, route, length))
-                //drawSymbolCircle(i, j, 0xB6F1);
-                drawSymbolCircle(i, j, 0xFC1F);
+                drawSymbolCircle(i, j, ROUTE_COLOR);
         }
     }
 }
@@ -241,20 +239,16 @@ void printRobot(const uint8_t pos, const direction roboDir){
     if(pos != UINT8_MAX)
         switch(roboDir){
                 case S:
-                    //drawSymbolDown(row, col, 0x026C);
-                    drawSymbolDown(row, col, 0xF800);
+                    drawSymbolDown(row, col, ROBOT_COLOR);
                     break;
                 case N:
-                    //drawSymbolUp(row, col, 0x026C);
-                    drawSymbolUp(row, col, 0xF800);
+                    drawSymbolUp(row, col, ROBOT_COLOR);
                     break;
                 case W:
-                    //drawSymbolLeft(row, col, 0x026C);
-                    drawSymbolLeft(row, col, 0xF800);
+                    drawSymbolLeft(row, col, ROBOT_COLOR);
                     break;
                 case E:
-                    //drawSymbolRight(row, col, 0x026C);
-                    drawSymbolRight(row, col, 0xF800);
+                    drawSymbolRight(row, col, ROBOT_COLOR);
                     break;
         }
 }

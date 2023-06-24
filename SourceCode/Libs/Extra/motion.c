@@ -82,7 +82,7 @@ void driveTile(uint8_t tiles){
             }
         }
 
-        Delay(150);
+        Delay(200);
     }
 
     Motor_Stop(LEFT_MOTOR, Motor_stop_float);
@@ -138,7 +138,7 @@ void turn(uint8_t dir) {
             }
         }
 
-        Delay(150);
+        Delay(200);
     }
 
     Motor_Stop(RIGHT_MOTOR, Motor_stop_float);

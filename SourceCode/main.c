@@ -171,7 +171,5 @@ int main(){
     turnAround();
     makeSound();*/
 
-    playFanfare();
-
     return 0;
 }

@@ -20,4 +20,5 @@ void clearLine(const uint8_t);
 void printText(const uint8_t, char *);
 
 
+void playFanfare();
 #endif //UTILS_H

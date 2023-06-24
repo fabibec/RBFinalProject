@@ -4,7 +4,8 @@
 #define RIGHT_MOTOR Port_A
 #define LEFT_MOTOR Port_C
 
-#define CIRCUMFERENCE 13.28
+//#define CIRCUMFERENCE 13.28
+#define CIRCUMFERENCE 13.5
 //#define CIRCUMFERENCE 26.56
 
 void initMotorPorts(){
@@ -13,7 +14,6 @@ void initMotorPorts(){
     OnBoardPeriph_Beep_Init();
 }
 
-// TODO regler for driveTile
 void driveTile(uint8_t tiles){
     /*int32_t distance = 25 * tiles * 1000;
 
@@ -185,8 +185,10 @@ void turnRight() {
 }
 
 void turnAround(){
-    turnLeft();
-    turnLeft();
+    //turnLeft();
+    //turnLeft();
+    turnRight();
+    turnRight();
 }
 
 void makeSound(){

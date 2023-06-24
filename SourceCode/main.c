@@ -155,8 +155,23 @@ int main(){
     runDijkstra();
     runRobo(0);
     runRobo(1);
+    makeSound();
 
     //driveTile(4);
+    /*turnLeft();
+    Delay(1000);
+    turnLeft();
+    Delay(1000);
+    turnAround();
+    Delay(1000);
+    turnRight(1000);
+    Delay(1000);
+    turnRight(1000);
+    Delay(1000);
+    turnAround();
+    makeSound();*/
+
+    playFanfare();
 
     return 0;
 }

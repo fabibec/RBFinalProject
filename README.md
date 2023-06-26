@@ -42,7 +42,7 @@ The structure tiles contains the following information:
 
 In order to save memory, all indexes are stored as 1D indexes. We have written a function to convert these coordinates into 2D indexes and vice versa. Hence to this we can always use the index that's more convenient for the current calculation.
 
-The are parts of the algoritm are pretty much equal to a "normal" Dijkstra. In order to explain other interesting logic in more detail, a detailed explanation the algorithm is omitted.
+The other parts of the algorithm are pretty much equal to a "normal" Dijkstra. In order to explain other interesting logic in more detail, a detailed explanation of the algorithm is omitted.
 
 ## Conversion to driving instructions 
 
@@ -140,7 +140,7 @@ The same procedure is used for the right motor.
 
 ## Displaying the progress
 
-Once the map has been converted from the input string to a 2D array and the start and end points have been processed by the system, this information is printed to the display. This view is updated when the robot starts driving to its first target. Once the robot starts moving, the route is only updated when the robot makes a turn. This design choice was made to keep the display logic out of the driving functions. After each update, you can also see the robot's current position and the destination it's heading towards. The same behaviour can be observed when the robot navigates back to its starting position, or the robot travels to the second target.
+Once the map has been converted from the input string to a 2D array and the start and end points have been processed by the system, this information is printed to the display. This view is updated when the robot starts driving to its first target. Once the robot starts moving, the route is only updated when the robot makes a turn. This design choice was made to keep the display logic out of the driving functions. After each update, you can also see the robot's current position and the destination it's heading towards. The same behaviour can be observed either when the robot navigates back to its starting position, or when the device travels to the second target.
 
 ---
  ©  Fabian Becker, Florian Remberger & Quang Thanh Lai, 2023

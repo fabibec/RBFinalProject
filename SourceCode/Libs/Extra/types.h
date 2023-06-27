@@ -1,9 +1,14 @@
 #ifndef TYPES_H
 #define TYPES_H
-#include "stdbool.h"
+
 #include "nnxt.h"
 
-typedef struct {
+typedef enum{
+    false,
+    true
+} bool;
+
+typedef struct{
     // holds table position as 2 1D Indexes
     uint8_t index1;
     uint8_t index2;

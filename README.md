@@ -1,23 +1,18 @@
 # Final Project - Introduction to Robotics
 ### by Fabian Becker, Florian Remberger & Quang Thanh Lai
 
-## Project Description
-The aim of this project is for the robot to make it's way through a predefinied map and navigate to two destinations.
+## General Project Requirements 
 
-## Task Importing
-Simple for loop is necessary to copy characters from string into a 2D array with dimensions 14x14.
+The aim of this project is for the robot to find its way around a given map and navigate to two of the three marked destinations by the shortest possible route. The map has a size of 3 x 3 metres and is divided into tiles of 25 cm. A target is reached when the robot is positioned at one of the adjacent target tiles, while the position of the target itself is perceived as an obstacle. After reaching a target, the robot has to navigate back to the start position. The starting position of the robot is downwards. 
 
-## Pathfinding and Route Creation
-Dijkstra's Algorithm is used for pathfinding
+Additionally, our group implemented a live view of the current map, the calculated path and the current position of the robot on the device's display.
 
-## Driving Controls
+## Member Contributions
 
-## Individual Contributions
-### Fabian Becker (Pathfinding & Route Creation
-TODO
+Fabian came up with the ideas for path finding and converting the shortest path into driving instructions. He then implemented and optimised these concepts with the help of Thanh. He also came up with the idea of displaying this information on the robot's display and coded the first working prototype, which was later refined by all three group members. Florian was responsible for the complex logic of the driving function. Together with Thanh, he implemented and optimised the logic, which we'll explain in more detail later. Finally, Thanh helped with debugging and optimising various parts of the code. He also refactored a lot of code to improve the uniformity of our code.
 
-### Florian Remberger (Importing & Driving Controls)
-## Importing
+## Importing 
+
 Importing the map is quite simple. We don't need to read it directly from a text file. 
 A const char* variable called mapString is used to store the map string.
 It is located in the main.c file. It must be changed manually if you want the robot to use a different map.
@@ -34,6 +29,30 @@ The column is calculated by the operation i % 14. This will also return an integ
 
 Using both calculations, we can now combine them to get the following equation.
 mapStringMatrix[i/14][i%14] = mapString[i]
+
+## Path finding
+
+For path finding, we used a simpler version of Dijstra's algorithm with lower time complexity, so that the robot can only move in four directions. The algorithm doesn't need to check every other node for a possible shorter path, but only the four adjacent tiles. 
+
+All the information for the pathfinding algorithm is contained in an array of the Structure tile. A tile contains the information required for one tile of the map, which is referred to as a node in this context.
+The structure tiles contains the following information:
+- visited | has the tile been processed by the algorithm (bool)
+- distance | the current shortest distance to the starting position (uint8_t)
+- prev | the index of the previous tile on the current shortest path as 1D index (uint8_t)
+
+In order to save memory, all indexes are stored as 1D indexes. We have written a function to convert these coordinates into 2D indexes and vice versa. Hence to this we can always use the index that's more convenient for the current calculation.
+
+The other parts of the algorithm are pretty much equal to a "normal" Dijkstra. In order to explain other interesting logic in more detail, a detailed explanation of the algorithm is omitted.
+
+## Conversion to driving instructions 
+
+To find the shortest path, we first look for the neighbouring tile of the current destination with the shortest distance to the start. Then a route array of that particular distance is constructed. This array contains the coordinates of the tiles from the start (excluded) to the destination (included). This array is used to generate the driving instructions, with the forward function being executed only if a turn is required or if there are no more coordinates to process.
+
+When the robot arrives at the destination, the makeSound() function is called and the robot turns 180 degrees.
+
+For the way back, a similar array is constructed, now containing the coordinates of the start tile. The execution of the motion commands is done in the same way, the only difference being that the array is now processed from the back to the front.  
+
+As the robot arrives at the starting index, it is now turned, based of its celestial direction, in a way that the robot is facing south again, in order to be ready for driving to the next target.
 
 ## Driving Controls
 ### function driveTiles(uint8_t tiles) 
@@ -119,10 +138,9 @@ The last operation of the else part is to assign the current degree value to the
 
 The same procedure is used for the right motor.
 
+## Displaying the progress
 
-### Quang Thanh Lai (Route Creation &  Driving Controls)
-TODO
-
+Once the map has been converted from the input string to a 2D array and the start and end points have been processed by the system, this information is printed to the display. This view is updated when the robot starts driving to its first target. Once the robot starts moving, the route is only updated when the robot makes a turn. This design choice was made to keep the display logic out of the driving functions. After each update, you can also see the robot's current position and the destination it's heading towards. The same behaviour can be observed either when the robot navigates back to its starting position, or when the device travels to the second target.
 
 ---
-
+ ©  Fabian Becker, Florian Remberger & Quang Thanh Lai, 2023

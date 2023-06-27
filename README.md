@@ -142,5 +142,10 @@ The same procedure is used for the right motor.
 
 Once the map has been converted from the input string to a 2D array and the start and end points have been processed by the system, this information is printed to the display. This view is updated when the robot starts driving to its first target. Once the robot starts moving, the route is only updated when the robot makes a turn. This design choice was made to keep the display logic out of the driving functions. After each update, you can also see the robot's current position and the destination it's heading towards. The same behaviour can be observed either when the robot navigates back to its starting position, or when the device travels to the second target.
 
+### Demo
+![](https://github.com/fabibec/RBFinalProject/blob/assets/images/startPosition.jpg)  |  ![](https://github.com/fabibec/RBFinalProject/blob/assets/images/drivingPosition.jpg)
+:-------------------------:|:-------------------------:
+Robot at starting position             |  Robot while driving
+
 ---
  ©  Fabian Becker, Florian Remberger & Quang Thanh Lai, 2023

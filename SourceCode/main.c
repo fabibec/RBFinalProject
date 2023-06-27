@@ -157,6 +157,7 @@ int main(){
     runRobo(1);
     makeSound();
 
+    //Delay(1000);
     //driveTile(4);
     /*turnLeft();
     Delay(1000);

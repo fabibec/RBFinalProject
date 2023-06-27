@@ -36,17 +36,21 @@ void driveTile(uint8_t tiles){
     Motor_Stop(LEFT_MOTOR, Motor_stop_float);
     Motor_Stop(RIGHT_MOTOR, Motor_stop_float);*/
 
+    char msg[20];
+    char msg1[20];
+    uint8_t temp = 0;
+
     int32_t distanceL, distanceR;
     distanceL = distanceR = 25 * tiles * 1000;
 
     uint32_t degL, degR, prevDegL, prevDegR;
 
     uint8_t motorL, motorR, diffL, diffR, offSet;
-    motorL = 51;
+    motorL = 50;
     motorR = 50;
     offSet = 5;
 
-    uint32_t buffer = 2 * 1000;
+    int32_t buffer = 2 * 1000;
 
 
     Motor_Tacho_GetCounter(LEFT_MOTOR, &prevDegL);
@@ -55,7 +59,7 @@ void driveTile(uint8_t tiles){
     Motor_Drive(LEFT_MOTOR, Motor_dir_forward, motorL);
     Motor_Drive(RIGHT_MOTOR, Motor_dir_forward, motorR);
 
-    while(distanceL > buffer && distanceR > buffer)
+    while((distanceL > buffer) && (distanceR > buffer))
     {
         Motor_Drive(LEFT_MOTOR, Motor_dir_forward, motorL);
         Motor_Drive(RIGHT_MOTOR, Motor_dir_forward, motorR);
@@ -82,6 +86,12 @@ void driveTile(uint8_t tiles){
             }
         }
 
+        //temp = temp ^ 1;
+        sprintf(msg, "%ld", distanceL);
+        sprintf(msg1, "%ld", distanceR);
+        printText(0, msg);
+        printText(1, msg1);
+
         Delay(200);
     }
 
@@ -90,25 +100,25 @@ void driveTile(uint8_t tiles){
 }
 
 uint32_t getAbsDiff(uint32_t a, uint32_t b) {
-    return ((a > b) ? (a - b): (b - a));
+    return ((a > b) ? (a - b) : (b - a));
 }
 
 void turn(uint8_t dir) {
     int16_t distanceL, distanceR;
     distanceL = distanceR = (2.0 * 3.14) * 1000;
     uint32_t prev_degL, prev_degR, degL, degR;
-    uint8_t motorL = 21;
+    uint8_t motorL = 20;
     uint8_t motorR = 20;
     uint8_t diffL = 0;
     uint8_t diffR = 0;
-    uint8_t offSet = 1;
+    uint8_t offSet = 4;
 
     Motor_Tacho_GetCounter(RIGHT_MOTOR, &prev_degR);
     Motor_Tacho_GetCounter(LEFT_MOTOR, &prev_degL);
 
     Motor_Drive(LEFT_MOTOR, ((dir) ? Motor_dir_backward: Motor_dir_forward), motorL);
     Motor_Drive(RIGHT_MOTOR, ((dir) ? Motor_dir_forward: Motor_dir_backward), motorR);
-    while (distanceL > 0 || distanceR > 0) {
+    while ((distanceL > 0) || (distanceR > 0)) {
         if (distanceL <= 0) {
             Motor_Stop(LEFT_MOTOR, Motor_stop_break);
         } else {
@@ -192,11 +202,11 @@ void turnAround(){
 }
 
 void makeSound(){
-    OnBoardPeriph_Beep(100);
+    OnBoardPeriph_Beep(500);
     for (uint8_t i = 0; i < 3; i++) {
         OnBoardPeriph_BeepCMD(Beep_on);
-        Delay(100);
+        Delay(500);
         OnBoardPeriph_BeepCMD(Beep_off);
-        Delay(100);
+        Delay(500);
     }
 }

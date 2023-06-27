@@ -6,7 +6,7 @@
 
 void initMotorPorts();
 
-void driveTile(uint8_t);
+void driveTile(uint8_t, bool);
 void turn(uint8_t);
 
 uint32_t getAbsDiff(uint32_t, uint32_t);

@@ -4,7 +4,7 @@
 
 char mapStringMatrix[14][14];
 uint8_t start;
-uint8_t destinations[] = {2, 3};
+uint8_t destinations[] = {2, 1};
 table tables[3];
 tile mapTiles[196];
 uint8_t closestDestTiles[2];
@@ -48,7 +48,7 @@ void initTablesArray(){
 void convertMapStringToMatrix(){
     const char* mapString = "\
 ##############\
-# S          #\
+# S        22#\
 ######       #\
 #    #       #\
 #            #\
@@ -58,7 +58,7 @@ void convertMapStringToMatrix(){
 ##### #      #\
 #33   ###### #\
 #     #      #\
-#     #    22#\
+#     #      #\
 #     #      #\
 ##############";
 

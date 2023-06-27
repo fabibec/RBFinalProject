@@ -53,8 +53,8 @@ direction turnDirections(const direction d, const int8_t steps, const bool clock
     }
     return newDir;
 }
-// -1 left Turn; 0 no turn; 1 right Turn; 2 180 deg
 int8_t turnDegrees(const direction turnsTo, const direction roboDirection){
+    // -1 left Turn; 0 no turn; 1 right Turn; 2 180 deg
     direction currentDirection = roboDirection;
 
     if(((currentDirection + 1) % 4) == turnsTo)

@@ -5,12 +5,7 @@
 #include "dijkstra.h"
 
 
-
-// TODO clean all up
-
-
 void runRobo(uint8_t targetIndex){
-    // mapTiles, start, closestDestTiles
     direction roboDirection = S;
 
     const uint8_t start = getStart();
@@ -45,7 +40,7 @@ void runRobo(uint8_t targetIndex){
                 break;
             case 1:
                 if(forwardCount)
-                    driveTile(forwardCount);
+                    driveTile(forwardCount, false);
                 forwardCount = 1;
                 turnRight();
                 roboDirection = turnsTo;
@@ -53,7 +48,7 @@ void runRobo(uint8_t targetIndex){
                 break;
             case -1:
                 if(forwardCount)
-                    driveTile(forwardCount);
+                    driveTile(forwardCount, false);
                 forwardCount = 1;
                 turnLeft();
                 roboDirection = turnsTo;
@@ -63,7 +58,7 @@ void runRobo(uint8_t targetIndex){
         currentIndex = route[i];
     }
     if(forwardCount){
-        driveTile(forwardCount);
+        driveTile(forwardCount, true);
         updateRoute(route, dist, dist, roboDirection, 1);
     }
 
@@ -92,7 +87,7 @@ void runRobo(uint8_t targetIndex){
                 break;
             case 1:
                 if(forwardCount)
-                    driveTile(forwardCount);
+                    driveTile(forwardCount, false);
                 forwardCount = 1;
                 turnRight();
                 roboDirection = turnsTo;
@@ -100,7 +95,7 @@ void runRobo(uint8_t targetIndex){
                 break;
             case -1:
                 if(forwardCount)
-                    driveTile(forwardCount);
+                    driveTile(forwardCount, false);
                 forwardCount = 1;
                 turnLeft();
                 roboDirection = turnsTo;
@@ -117,19 +112,19 @@ void runRobo(uint8_t targetIndex){
             break;
         case 1:
             if(forwardCount)
-                driveTile(forwardCount);
+                driveTile(forwardCount, false);
             turnRight();
             roboDirection = S;
             break;
         case -1:
             if(forwardCount)
-                driveTile(forwardCount);
+                driveTile(forwardCount, false);
             turnLeft();
             roboDirection = S;
             break;
         case 2:
             if(forwardCount)
-                driveTile(forwardCount);
+                driveTile(forwardCount, false);
             turnAround();
             roboDirection = S;
             break;
@@ -156,21 +151,6 @@ int main(){
     runRobo(0);
     runRobo(1);
     makeSound();
-
-    //Delay(1000);
-    //driveTile(4);
-    /*turnLeft();
-    Delay(1000);
-    turnLeft();
-    Delay(1000);
-    turnAround();
-    Delay(1000);
-    turnRight(1000);
-    Delay(1000);
-    turnRight(1000);
-    Delay(1000);
-    turnAround();
-    makeSound();*/
 
     return 0;
 }

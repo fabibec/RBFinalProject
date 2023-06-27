@@ -18,6 +18,4 @@ direction turnDirections(const direction, const int8_t, const bool);
 /* Debug */
 void clearLine(const uint8_t);
 void printText(const uint8_t, char *);
-
-
 #endif //UTILS_H

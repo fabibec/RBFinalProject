@@ -46,7 +46,7 @@ void initTablesArray(){
 
 
 void convertMapStringToMatrix(){
-    /*const char* mapString = "\
+    const char* mapString = "\
 ##############\
 # S          #\
 ######       #\
@@ -60,9 +60,9 @@ void convertMapStringToMatrix(){
 #     #      #\
 #     #    22#\
 #     #      #\
-##############";*/
+##############";
 
-    const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
+    //const char* mapString = "###############     S      ###   #####   ##    11      ##            ##   ####   2 ##      #   2 ##      #     ##   ###########   #        ##   #   33   ##   #        ##            ###############";
 
     for (uint8_t i = 0; i < 196; i++) {
         mapStringMatrix[(i/14)][(i%14)] = mapString[i];

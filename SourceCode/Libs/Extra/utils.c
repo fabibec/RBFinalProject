@@ -23,7 +23,6 @@ void conv1Dto2D(const uint8_t index, uint8_t* row, uint8_t* col){
 direction headsTo(const uint8_t currentIndex, const uint8_t nextIndex){
     uint8_t x1, x2, y1, y2;
 
-    // TODO change parameter from y,x to x,y ?
     conv1Dto2D(currentIndex, &y1, &x1);
     conv1Dto2D(nextIndex, &y2, &x2);
 

@@ -103,9 +103,8 @@ Using this information we can approximate the distance one wheel has to travel b
 We want to avoid floating-point values so we multiply the result of the above equation by 1000.
 
 After calculating the distance that both wheels have to travel, we declare variables that will store the current degree value of both motors as well as the previous degree values (prev_degL, prev_degR, degL, degR).
-Then we define the variables motorL and motorR with 20 which represents the motor force for the left and right motor.
-
-TODO: Definition of variables diffL, diffR, offset.
+Then we define the variables motorL and motorR with 21 for motorL and 20 for motorR (the left motor of our robot is slightly weaker), which represent the motor force for the left and right motors.
+Then we define the diffL, diffR and offSet variables, which serve exactly the same purpose as they did in the driveTiles function.
 
 The next thing this function does is get the current motor degree for the left and right motors and assign that value to the prev_degL and prev_degR variables.
 
@@ -118,18 +117,18 @@ If so, we stop the left motor because we have already moved enough distance on t
 Else if the distanceL variable is greater than 0, we get the current motor degree and store that value in the degL variable.
 Now that we have the previous and current degree value we can calculate the exact distance the wheel has turned since the last check.
 This can be done in the following way:
-1) Calculate the amount the wheel has turned:
+1) **Calculate the amount the wheel has turned**:
    First we calculate the difference between prev_degL and degL.
    Then we multiply this value by 2 because the motor sensor returns 1 for
    every 2 degrees it turned.
    Dividing this result by 360 gives us the exact amount the wheel has turned.
    ((degL - prev_degL) * 2) / 360
 
-2) Multiply the result by the CIRCUMFERENCE of the wheel:
+2) **Multiply the result by the CIRCUMFERENCE of the wheel**:
    By multiplying the amount the wheel turned by the CIRCUMFERENCE of the
    wheel we get the exact distance it traveled.
 
-3) Multiply the result by 1000:
+3) **Multiply the result by 1000**:
    This must be done because we want to avoid floating point values.
 
 After calculating the distance the wheel has turned we subtract that value from the total distance it has to turn.
@@ -137,6 +136,10 @@ After calculating the distance the wheel has turned we subtract that value from 
 The last operation of the else part is to assign the current degree value to the prev_degL variable so that we can do the same calculation steps in the next iteration.
 
 The same procedure is used for the right motor.
+The following instructions are exactly the same as those used in the driveTiles function for fine-tuning motor power.
+We check whether one of the wheels has rotated more than the other by comparing the diffL and diffR variables. 
+If one of them is greater than the other, plus our previously specified offSet, we increase the motor force for the motor on the side where the wheel has rotated significantly less.
+The last thing inside the while loop has to be a delay. So we will not get the same degree value because the wheels will move a bit before we check again.
 
 ## Displaying the progress
 

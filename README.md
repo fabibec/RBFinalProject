@@ -96,7 +96,7 @@ This calculation is quite complex. So I want to break it down into smaller steps
 
 After calculating the distance we can simply subtract it from the total distance and set prev_deg to deg.
 
-We now check whether one of the wheels has rotated more than the other by comparing the diffL and diffR variables. 
+We now check wether one of the wheels has rotated more than the other by comparing the diffL and diffR variables. 
 If one of them is greater than the other, plus our previously specified offSet, we increase the motor force for the motor on the side where the wheel has rotated significantly less.
 The last thing inside the while loop has to be a delay. So we will not get the same degree value because the wheels will move a bit before we check again.
 

@@ -145,12 +145,41 @@ void init(){
     initMotorPorts();
     initDijkstra();
 }
+
+void debugTest(){
+    printText(0, "Turning left");
+    turnLeft();
+    printText(0, "Done !");
+    Delay(200);
+
+    printText(1, "Turning right");
+    turnRight();
+    printText(1, "Done !");
+    Delay(200);
+
+    printText(2, "Turning around");
+    turnAround();
+    printText(2, "Done !");
+    Delay(200);
+
+    printText(3, "Driving 2 Tiles with anfahren");
+    driveTile(2, true);
+    printText(3, "Done !");
+    Delay(200);
+
+    printText(4, "Driving 2 Tiles without anfahren");
+    driveTile(2, false);
+    printText(4, "Done !");
+    Delay(200);
+}
+
 int main(){
     init();
     runDijkstra();
     runRobo(0);
     runRobo(1);
     makeSound();
+    //debugTest();
 
     return 0;
 }

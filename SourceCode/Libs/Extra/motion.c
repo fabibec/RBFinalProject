@@ -80,7 +80,7 @@ void turn(uint8_t dir) {
     int16_t distanceL, distanceR;
     distanceL = distanceR = (2.0 * 3.14) * 1000;
     uint32_t prev_degL, prev_degR, degL, degR;
-    uint8_t motorL = 20;
+    uint8_t motorL = 21;
     uint8_t motorR = 20;
     uint8_t diffL = 0;
     uint8_t diffR = 0;

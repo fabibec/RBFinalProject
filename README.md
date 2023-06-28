@@ -60,24 +60,35 @@ This function is located in the motion.c file.
 It makes the robot move forward in a straight line. 
 The input parameter tiles represents the number of tiles (each tile has a length of 25 cm) that the robot should move forward. 
 Using a 14x14 map, the tiles datatype uint8_t will be sufficient because we cannot move more than 12 tiles before hitting a wall. 
+The second parameter "anfahren" (=approach) is of boolean type and determines whether the robot should approach the last point more slowly without stopping abruptly at the end.
+It also changes the value of the buffer variable, because we are stopping the motors at a much lower power, so the robot will not travel as far as if we were stopping at a higher speed.
 
 Calculating the distance to travel is the first thing this function does. 
 This calculation is quite simple, because we only have to multiply the tiles by 25 (cm) to get the total distance we want to move. We also multiply the already calculated distance by 1000 because we do not want to use floating point values.  
 
-After calculating the distance, we declare two variables. We will use them to calculate the difference in degrees.  
+After calculating the distance, we declare nine variables. We will use them to calculate the difference in degrees.  
+degL and degR display the current measured degrees. 
+prevDegL and prevDegR store the last measured degree values.
+motorL and motorR store the motor power to be applied to each of the two motors. They are both initialised to 50.
+diffL and diffR store the absolute difference between prevDegL/ prevDegR and degL/ degR. 
+The offSet variable determines how large the difference between diffL and diffR must be before the motor power is increased to prevent the robot from drifting in one direction.
 
 Now we get the current degree of the wheels. We store this value in the prev_deg variable.  
 
 The general logic of this drive function is: 
 First we start the motors and then we check how much distance we have traveled since the last check. 
 From the total distance we have to travel, we subtract the distance traveled. 
-We stop the motors and set Motor_stop_float if the total distance is less than 2cm (represented as 2000 in our code due to the multiplication with 1000 earlier).  
-So the first thing inside the while loop has to be a delay. So we do not get the same degree value as just before the while loop. 
-We let the motors run for 200ms. So we can be sure that we get a bigger degree value.  
+We stop the motors and set Motor_stop_float if the total distance is less than the buffer value (3000 which represents 3cm if anfahren paramter is false, else buffer equals zero).  
+
+At each iteration of the while loop, we check whether we already need to slow down the robot because we want it to approach a table.
+Logically, we first need to check that the 'approach' parameter is true. Then we want to check that the distance for both sides is less than 50000, so each wheel has to move 25000 more, which is 25cm and therefore 1 tile. The last thing that has to be true so that we can decrement the motor force for both sides by two is that the motor force is not already less than 20. If we did not check this, the motor force could possibly be decremented to 0, which would lead to an infite while loop because the robot would stop moving, so the distance travelled will never be less than or equal to the buffer.
+
+We now start the motors with the motor force of the current value of motorL and motorR.
+After starting the motors we use the Motor-Tacho_GetCounter function which gives us the current value of the motor degree.
 Now that we have the new degree value and have stored it in the deg variable, we need to calculate the distance that the robot has moved. 
 This calculation is quite complex. So I want to break it down into smaller steps:
 
-1) **Calculate the difference between the old degree value and the new degree value**. This can be done by subtracting the old value stored in prev_deg from the current degree value stored in deg. In our code we use the function getAbsDiff which calculated the absolute difference so we do not get any negative numbers.
+1) **Calculate the difference between the old degree value and the new degree value**. This can be done by subtracting the old value stored in prev_deg from the current degree value stored in deg. In our code we use the getAbsDiff function which calculates the absolute difference so we do not get any negative numbers.
 2) **Multiply** the number we just calculated **by 2**. The Motor_Tacho_GetCounter function will return 1 for every two degrees the motor has rotated. 
 3) **Divide it by 360.0**. 360 degrees would be a full turn of the motor and therefore a full turn of the wheel. What we want to calculate here is how many times the wheel has turned. The .0 guarantees, that the result will be of type double so we do not lose precision.
 4) **Multiply by CIRCUMFERENCE**. CIRCUMFERENCE is the circumference of the wheel. After this step, we now know excactly how many centimeters the robot has moved since the last check. 
@@ -85,8 +96,13 @@ This calculation is quite complex. So I want to break it down into smaller steps
 
 After calculating the distance we can simply subtract it from the total distance and set prev_deg to deg.
 
+We now check whether one of the wheels has rotated more than the other by comparing the diffL and diffR variables. 
+If one of them is greater than the other, plus our previously specified offSet, we increase the motor force for the motor on the side where the wheel has rotated significantly less.
+The last thing inside the while loop has to be a delay. So we will not get the same degree value because the wheels will move a bit before we check again.
+
 This procedure is repeated until the distance is less than or equal to 2cm. 
 If this is the case, the motors will stop and the function will end.
+
 ### function turn(uint8_t dir)
 The motion.c file also contains the funtion turn.
 It makes the robot turn left or right according to the input parameter dir.
